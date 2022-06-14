@@ -1,5 +1,6 @@
 /*
- Concurrency pattern in Uber, Google golang from golang development team, other resource, other frame ... and my experience
+ Concurrency pattern in golang from golang development team, other resource, other frame... and my experience
+ Concurrency is simple run and not simple stop. It has many problem with code concurrency.
  It's not dependence anything frame or packet.
  It is maybe use in everything in golang code.
  It's use for me as an as doc research and search.
