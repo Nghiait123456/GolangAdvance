@@ -14,7 +14,7 @@ func (s *S) Write(str string) {
 	s.data = str
 }
 
-func main1() {
+func main() {
 	sVals := map[int]S{1: {"A"}}
 
 	// You can only call Read using a value
