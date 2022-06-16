@@ -1,5 +1,5 @@
 /*
- Concurrency pattern in Uber, Google golang from golang development team, other resource, other frame ... and my experience
+ Guidelines from Uber, Google golang from golang development team, other resource, other frame ... and my experience
  It's not dependence anything frame or packet.
  It is maybe use in everything in golang code.
  It's use for me as an as doc research and search.
