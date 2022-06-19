@@ -38,5 +38,5 @@ func main() {
     This ex executes job:
 	  boring function always push data to channel
 	  main function get data from this channel
-    ==> everything stream from channel, this is the common way in golang)
+    ==> everything stream from channel, this is the common way in golang.
 */
