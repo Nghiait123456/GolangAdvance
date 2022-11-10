@@ -12,7 +12,7 @@ I and you dissect the level increment simultaneously, along with the best practi
 Concurrency:  easy to start, but not easy to stop. Here we go!!! </br>
 
 ## What is Concurrency? <a name="WhatIsConcurrency"></a>
- ![](img/concurrency_define.png)
+ ![](img/concurrency_define.png) </br>
  Concurrency is the composition of independently executing computations. Concurrency is a way to structure software, particularly as a way to write clean code that interacts well with the real world. In Wikipedia: "concurrency is the ability of different parts or units of a program, algorithm, or problem to be executed out-of-order or in partial order, without affecting the final outcome. </br>
  ==> Summary: There are some problem, we can it executed on many part, maybe is many core or not, ==> summary target : problem run faster but still correct.
 
@@ -27,7 +27,7 @@ Ex: Http WebServer: in one server, we handle many request incoming. To achieve h
 
 
 ## Distinctive concurrency and parallelism?  <a name="DistinctiveConcurrencyAndParallelism?"></a>
- ![](img/parallelism.png)
+ ![](img/parallelism.png) </br>
  For wiki: "Task parallelism (also known as function parallelism and control parallelism) is a form of parallelization of computer code across multiple processors in parallel computing environments. This explanation is not simple for understand it and understand difference with concurrency. There are simple way, follow this case: </br>
     Assume problem run on computer has only one core CPU. You are never way implement parallelism in this context. But you have way implement concurrency in this context. </br>
  ===>    Think about this context, you will understand Distinctive concurrency and parallelism. </br>
