@@ -39,6 +39,6 @@ Ex: Http WebServer: in one server, we handle many request incoming. To achieve h
 
 ## Pattern  <a name="Pattern"></a>
 
-todo lay het githut https://github.com/lotusirous/go-concurrency-patterns/
+todo keep 18 not die 
 concurency pattern advance
 worker poll best practice
