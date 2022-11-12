@@ -185,9 +185,9 @@ func testReadWaitWrite(totalCountTest uint64) {
 	wg.Wait()
 }
 
-func benchMarkRing() {
+func benchMarkRing(countW int) {
 	var wg sync.WaitGroup
-	rb := NewRingBuffer(50000)
+	rb := NewRingBuffer(500000)
 	var totalCountWrite uint64
 	var totalCountRead uint64
 
@@ -199,7 +199,7 @@ func benchMarkRing() {
 			wg.Done()
 		}()
 
-		for i := 0; i < 1000; i++ {
+		for i := 0; i < countW; i++ {
 			fmt.Println("start one worker write")
 			wg.Add(1)
 			go func() {
@@ -226,7 +226,7 @@ func benchMarkRing() {
 			wg.Done()
 		}()
 
-		for i := 0; i < 1000; i++ {
+		for i := 0; i < countW; i++ {
 			fmt.Println("start one worker read")
 			wg.Add(1)
 			go func() {
@@ -399,6 +399,6 @@ func benchChannel() {
 func main() {
 	//testWriteAndRead()
 	//testReadWaitWrite(50000)
-	benchMarkRing()
+	benchMarkRing(4000)
 	//benchChannel()
 }
