@@ -38,3 +38,7 @@ Ex: Http WebServer: in one server, we handle many request incoming. To achieve h
 ==> In this problems, children task run on routine is not run independence, problems is not really for concurrency, it is need other solution. </br>
 
 ## Pattern  <a name="Pattern"></a>
+
+todo lay het githut https://github.com/lotusirous/go-concurrency-patterns/
+concurency pattern advance
+worker poll best practice
