@@ -42,3 +42,4 @@ Ex: Http WebServer: in one server, we handle many request incoming. To achieve h
 todo keep 18 not die 
 concurency pattern advance
 worker poll best practice
+worker poll remote memory

@@ -15,7 +15,6 @@ func worker(id int, jobs <-chan int, results chan<- int) {
 }
 
 func main() {
-
 	const numJobs = 5
 	jobs := make(chan int, numJobs)
 	results := make(chan int, numJobs)
