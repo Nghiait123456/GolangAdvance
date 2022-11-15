@@ -43,3 +43,6 @@ todo keep 18 not die
 concurency pattern advance
 worker poll best practice
 worker poll remote memory
+
+18,19,20 dung cho nhung concurrency phoi hop data chat che và nhieu custom ve luong xu l
+workker pool thich hop cho job don gian, khong có qua nhieu custom va quan hẹ data, nó tien cho nguoi dung việc khởi tạo và clear tài nguyên đã được thư viện làm hết rồi
