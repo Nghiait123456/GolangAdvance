@@ -48,7 +48,7 @@ func main() {
 	// merge 3 channels into 1 channel
 	c := fanIn(boring("Joe_1"), boring("Joe_2"), boring("Joe_3"))
 
-	for i := 0; i < 5; i++ {
+	for i := 0; i < 30; i++ {
 		msg := <-c // wait to receive message
 		fmt.Println(msg.str)
 		msg.wait <- true // main goroutine allows the boring goroutine to send next value to message channel.

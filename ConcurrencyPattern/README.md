@@ -4,7 +4,10 @@
 - [Distinctive concurrency and parallelism?](#DistinctiveConcurrencyAndParallelism?)
 - [What is problem concurrency then it's not strong](#WhatsIsProblemConcurrencyThenIt'sNotStrong?)
 - [Pattern](#Pattern)
-  - [1_Pass chan to function](#1PassChanToFunction)
+  - [1) Pass chan to function](#1PassChanToFunction)
+  - [2) Generator](#2Generator)
+  - [3) Fan in](#3FanIn)
+  - [4) Restore sequence](#4RestoreSequence)
 
 
 ## Introduce <a name="introduce"></a>
@@ -50,3 +53,34 @@ workker pool thich hop cho job don gian, khong có qua nhieu custom va quan hẹ
 
 
 ## 1) Pass chan to function  <a name="1PassChanToFunction"></a>
+![](img/channel.png) </br>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/1_pass_chan_to_function/main.go </br>
+
+Channel is tool sync data from many concurrency. It is strong, popular and flexible. In this example, I simply write to it in the routine and read it in main (maybe in another routine). It's so simple that, you don't need to understand how it syncs data, golang has built and fully integrated a tool syncs feature in the channel. </br>
+
+## 2) Generator  <a name="2Generator"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/2_generator/main.go </br>
+
+I have 2 function run on 2 routine, every functions pass data in to one channel. In main, i sequentially get all the data of all those channels. A very simple pattern and has quite a few weaknesses. This weakness will be analyzed in the samples below. </br>
+
+
+
+## 3) Fan in  <a name="3FanIn"></a>
+![](img/fan-in.png) </br>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/3_fan_in/main.go </br>
+
+In terms of features, it's the same as Example 2, but I've improved it a bit. A common channel is created to capture data streams from all individual channels. That common channel will be the channel that any place to read will take. </br>
+A smart move, you have hundreds of routines and hundreds of channels containing data, you will also only need to care about a single endpoint channel to get the data. The performance bottleneck is almost absent in most backend problems, it usually only appears in some very deep performance problems in the OS kernel. </br>
+A simple, powerful and commonly used pattern. </br>
+
+
+## 4) Restore sequence  <a name="4RestoreSequence"></a>
+![](img/4_restore_sequence.png) </br>
+
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/4_restore_sequence/main.go </br>
+
+In patter 3) Fan in, consummer and producer continuously run and retrieve data, ignoring order of data retrieval and interaction. Now, I want when a consummer pushes 1 data, the producer has to process it, then let allow the consummer do the work and push the data continue. The idea: each stream will have an endpoint to coordinate, block, and allow to work. Fortunately, the channel already has that feature. </br>
+
+Each routine will create a waitForIt channel, after writing data, worker loops at "<- waitForIt" until it is allowed to work in "msg.wait <- true //". </br>
+
+In golang, synchronous and asynchronous handling becomes simple with channels. In languages ​​where there is no direct concurrency build in that language, using an external packet, this is often more complicated and not very performant. </br>
