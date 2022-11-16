@@ -8,6 +8,11 @@
   - [2) Generator](#2Generator)
   - [3) Fan in](#3FanIn)
   - [4) Restore sequence](#4RestoreSequence)
+  - [5) Select timeout](#5SelectTimeout)
+  - [6) Quit signal](#6QuitSignal)
+  - [7) Daisy chan](#7DaisyChan)
+  - [6) Quit signal](#6QuitSignal)
+  - [6) Quit signal](#6QuitSignal)
 
 
 ## Introduce <a name="introduce"></a>
@@ -84,3 +89,47 @@ In patter 3) Fan in, consummer and producer continuously run and retrieve data, 
 Each routine will create a waitForIt channel, after writing data, worker loops at "<- waitForIt" until it is allowed to work in "msg.wait <- true //". </br>
 
 In golang, synchronous and asynchronous handling becomes simple with channels. In languages ​​where there is no direct concurrency build in that language, using an external packet, this is often more complicated and not very performant. </br>
+
+
+## 5) Select timeout  <a name="5SelectTimeout"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/5_select_timeout/main.go </br>
+
+I have many routine and many channel data for one job, and we want to set timeout for it. Idea: there must be a loop that checks that and a timeout signal </br>
+
+In golang, there are two concurrency structures: </br>
+1) event loop for multiple events: </br>
+```
+for {
+    select {
+    case s := <-c:
+        fmt.Println(s)
+    case <-timeout:
+        fmt.Println("You talk too much.")
+        return
+    }
+}
+```
+ </br>
+
+2) channel for detail event: ```case <-timeout:``` </br>
+
+I use structure 1 for looping, and structure 2 for signal processing (with data, timeout). Everything works fine until the event timeout is caught. I insert my timeout handler and it's over. </br>
+
+
+## 6) Quit signal <a name="6QuitSignal"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/6_quit_signal/main.go </br>
+
+Quite similar to the idea of pattern 5, I want to quit my job when I want. I implement a quit channel, catch the signal and process on it. </br>
+
+
+## 7) Daisy chan <a name="7DaisyChan"></a>
+![](img/7_daisy_chan.png) </br>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/7_daisy_chan/main.go
+
+This pattern demonstrates that it is possible to create a large number of go routines, and it makes clear the block of channel property. </br>
+This is Rob Pike's pattern and I tried to rewrite it in a way that is easier to understand for newbies.I made 10000 chanel loops that block each other: </br>
+left <- (new) right (now left) <- (new) right (now left) <- ... </br>
+channel 1 <- channel 2 <-.... <- chanel 10000 </br>
+This block only ends when channel 100000 is written, and all channels and routines containing it are released. Run the code and you'll see I've printed this in detail. </br>
+
+In Rob Pike's original example, there is another pretty easy explanation, you can refer to: https://stackoverflow.com/questions/26135616/understand-the-code-go-concurrency-pattern-daisy-chain </br>
