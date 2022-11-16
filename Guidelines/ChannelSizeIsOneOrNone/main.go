@@ -25,7 +25,7 @@ func main() {
 	//	defer wg.Done()
 	//	time.Sleep(3 * time.Second)
 	//	fmt.Println("read from channel Zero with empty")
-	//	read := <-23_cleary_example_smart_fetch.cZero
+	//	read := <-24_cleary_example_smart_fetch.cZero
 	//	fmt.Println("read= ", read)
 	//	time.Sleep(20 * time.Second)
 	//}()
@@ -35,10 +35,10 @@ func main() {
 	//	defer wg.Done()
 	//	time.Sleep(10 * time.Second)
 	//	fmt.Println("push first value to channel Zero")
-	//	23_cleary_example_smart_fetch.cZero <- 1
+	//	24_cleary_example_smart_fetch.cZero <- 1
 	//	fmt.Println("done push first value to channel Zero")
-	//	23_cleary_example_smart_fetch.cZero <- 1
-	//	23_cleary_example_smart_fetch.cZero <- 1
+	//	24_cleary_example_smart_fetch.cZero <- 1
+	//	24_cleary_example_smart_fetch.cZero <- 1
 	//	fmt.Println("done push  to channel Zero")
 	//}()
 	/////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,12 +49,12 @@ func main() {
 	//	defer wg.Done()
 	//	//time.Sleep(10 * time.Second)
 	//	fmt.Println("read first from channel One with not empty")
-	//	23_cleary_example_smart_fetch.cOne <- 1
-	//	read := <-23_cleary_example_smart_fetch.cOne
+	//	24_cleary_example_smart_fetch.cOne <- 1
+	//	read := <-24_cleary_example_smart_fetch.cOne
 	//	fmt.Println("read= ", read)
 	//
 	//	fmt.Println("read second from channel One with empty")
-	//	read = <-23_cleary_example_smart_fetch.cOne
+	//	read = <-24_cleary_example_smart_fetch.cOne
 	//	fmt.Println("read= ", read)
 	//	time.Sleep(20 * time.Second)
 	//}()
@@ -64,11 +64,11 @@ func main() {
 	//	defer wg.Done()
 	//	time.Sleep(3 * time.Second)
 	//	fmt.Println("push first value to channel One")
-	//	23_cleary_example_smart_fetch.cOne <- 1
+	//	24_cleary_example_smart_fetch.cOne <- 1
 	//	fmt.Println("done push first value to channel One")
-	//	23_cleary_example_smart_fetch.cOne <- 1
+	//	24_cleary_example_smart_fetch.cOne <- 1
 	//	fmt.Println("done push seconds value to channel One")
-	//	23_cleary_example_smart_fetch.cOne <- 1
+	//	24_cleary_example_smart_fetch.cOne <- 1
 	//	fmt.Println("done push  to channel One")
 	//}()
 
@@ -80,12 +80,12 @@ func main() {
 	//	defer wg.Done()
 	//	//time.Sleep(10 * time.Second)
 	//	fmt.Println("read first from channel greater than one  with not empty")
-	//	23_cleary_example_smart_fetch.cGreaterOne <- 1
-	//	read := <-23_cleary_example_smart_fetch.cGreaterOne
+	//	24_cleary_example_smart_fetch.cGreaterOne <- 1
+	//	read := <-24_cleary_example_smart_fetch.cGreaterOne
 	//	fmt.Println("read= ", read)
 	//
 	//	fmt.Println("read second from channel  greater than one  with empty")
-	//	read = <-23_cleary_example_smart_fetch.cGreaterOne
+	//	read = <-24_cleary_example_smart_fetch.cGreaterOne
 	//	fmt.Println("read= ", read)
 	//	time.Sleep(20 * time.Second)
 	//}()
@@ -95,13 +95,13 @@ func main() {
 	//	defer wg.Done()
 	//	time.Sleep(3 * time.Second)
 	//	fmt.Println("push first value to channel  greater than one ")
-	//	23_cleary_example_smart_fetch.cGreaterOne <- 1
+	//	24_cleary_example_smart_fetch.cGreaterOne <- 1
 	//	fmt.Println("done push first value to channel greater than one ")
-	//	23_cleary_example_smart_fetch.cGreaterOne <- 1
+	//	24_cleary_example_smart_fetch.cGreaterOne <- 1
 	//	fmt.Println("done push seconds value to channel  greater than one ")
-	//	23_cleary_example_smart_fetch.cGreaterOne <- 1
+	//	24_cleary_example_smart_fetch.cGreaterOne <- 1
 	//	fmt.Println("done push three value to channel  greater than one ")
-	//	23_cleary_example_smart_fetch.cGreaterOne <- 1
+	//	24_cleary_example_smart_fetch.cGreaterOne <- 1
 	//	fmt.Println("done push  to channel greater than one ")
 	//}()
 
@@ -112,21 +112,21 @@ func main() {
 	//go func() {
 	//	defer wg.Done()
 	//	for i := 0; i < 64; i++ {
-	//		23_cleary_example_smart_fetch.cGreaterOne <- 1
+	//		24_cleary_example_smart_fetch.cGreaterOne <- 1
 	//	}
 	//
 	//	fmt.Println("done push 64 times to channel")
 	//	fmt.Println("start push 65 times to channel")
-	//	23_cleary_example_smart_fetch.cGreaterOne <- 1
+	//	24_cleary_example_smart_fetch.cGreaterOne <- 1
 	//	fmt.Println("done push 65 times to channel")
 	//	fmt.Println("start push 66 times to channel")
-	//	23_cleary_example_smart_fetch.cGreaterOne <- 1
+	//	24_cleary_example_smart_fetch.cGreaterOne <- 1
 	//	fmt.Println("done push 66 times to channel")
 	//}()
 	//
 	//wg.Add(1)
 	//go func() {
-	//	value := <-23_cleary_example_smart_fetch.cGreaterOne
+	//	value := <-24_cleary_example_smart_fetch.cGreaterOne
 	//
 	//	fmt.Println("get value = ", value)
 	//	time.Sleep(100 * time.Second)
@@ -143,7 +143,7 @@ func main() {
   1) deference chanZero, chanOne, chanGreaterOne
 
   +) chanZero block Sends and Receive, available when send or receive ready
-     un cmt line 23 ->to 44 : we have two routine Interactive with channel zero ( 23_cleary_example_smart_fetch.cZero )
+     un cmt line 23 ->to 44 : we have two routine Interactive with channel zero ( 24_cleary_example_smart_fetch.cZero )
      run and view result:
 		read from channel Zero with empty
 		push first value to channel Zero
@@ -152,7 +152,7 @@ func main() {
      after sleep 3s, routine first read from channel, but it's blocked when chanel empty
      inline37: after 10 second, routine seconds write first value to channel, after write success, routine 1 will is not blocked and read success
      ==> channel zero blocked read until sends avaible
-     in line  41,42, have two cmd write to channel : 23_cleary_example_smart_fetch.cZero <- 1, but it's blocked why not receive ready
+     in line  41,42, have two cmd write to channel : 24_cleary_example_smart_fetch.cZero <- 1, but it's blocked why not receive ready
      edit line 27 to : time.Sleep(10 * time.Second)  and edit line 37 to : 		time.Sleep(3 * time.Second), run again and get result:
 		push first value to channel Zero
 		read from channel Zero with empty
@@ -180,7 +180,7 @@ func main() {
 		push first value to channel Zero
 		done push first value to channel Zero
 		read=  1
-    same case one, we have 2 routine action to routine one 23_cleary_example_smart_fetch.cOne
+    same case one, we have 2 routine action to routine one 24_cleary_example_smart_fetch.cOne
     int line 55, fmt.Println("read= ", read), read not blocked when write not ready, it's only need channel not empty
     inline 71: fmt.Println("done push seconds value to channel One"), write to channel one not blocked when receive not ready, it's only need channel not full
     (please cmt all code 47 -> 73)

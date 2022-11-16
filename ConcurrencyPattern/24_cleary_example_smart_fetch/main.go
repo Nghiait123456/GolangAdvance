@@ -164,7 +164,7 @@ func NewMergerAllStreamData(listStream ...ControlOneStreamFetchInterface) Merger
 }
 func main() {
 	Streams := NewMergerAllStreamData(
-		NewControlOneStreamFetch(NewOneFetch("23_cleary_example_smart_fetch")),
+		NewControlOneStreamFetch(NewOneFetch("24_cleary_example_smart_fetch")),
 		NewControlOneStreamFetch(NewOneFetch("abc")),
 		NewControlOneStreamFetch(NewOneFetch("def")),
 	)

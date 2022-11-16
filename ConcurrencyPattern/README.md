@@ -4,6 +4,7 @@
 - [Distinctive concurrency and parallelism?](#DistinctiveConcurrencyAndParallelism?)
 - [What is problem concurrency then it's not strong](#WhatsIsProblemConcurrencyThenIt'sNotStrong?)
 - [Pattern](#Pattern)
+  - [1_Pass chan to function](#1PassChanToFunction)
 
 
 ## Introduce <a name="introduce"></a>
@@ -46,3 +47,6 @@ worker poll remote memory
 
 18,19,20 dung cho nhung concurrency phoi hop data chat che và nhieu custom ve luong xu l
 workker pool thich hop cho job don gian, khong có qua nhieu custom va quan hẹ data, nó tien cho nguoi dung việc khởi tạo và clear tài nguyên đã được thư viện làm hết rồi
+
+
+## 1) Pass chan to function  <a name="1PassChanToFunction"></a>

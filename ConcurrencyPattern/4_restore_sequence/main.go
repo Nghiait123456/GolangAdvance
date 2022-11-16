@@ -96,7 +96,7 @@ func main() {
 		send data to channel
 		send data to channel
 
-    we want get 5 times data form stream, after get full 5 times, we sleep for 23_cleary_example_smart_fetch routine is pending
+    we want get 5 times data form stream, after get full 5 times, we sleep for 24_cleary_example_smart_fetch routine is pending
     in line 60, for this time sleep, routine run after line <-waitForIt
     never have routine run continue, all routine pending until we want another data.
     we have control sequence data stream from flag line 29: waitForIt := make(chan bool)
