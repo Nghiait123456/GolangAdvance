@@ -11,8 +11,11 @@
   - [5) Select timeout](#5SelectTimeout)
   - [6) Quit signal](#6QuitSignal)
   - [7) Daisy chan](#7DaisyChan)
-  - [6) Quit signal](#6QuitSignal)
-  - [6) Quit signal](#6QuitSignal)
+  - [8) Google 1_0](#8Google1_0)
+  - [9) Google 2_0](#9Google2_0)
+  - [10) Google 2_1](#10Google2_1)
+  - [11) Google 3_0](#11Google3_0)
+  - [12) Adv ping pong](#12AdvPingPong)
 
 
 ## Introduce <a name="introduce"></a>
@@ -133,3 +136,66 @@ channel 1 <- channel 2 <-.... <- chanel 10000 </br>
 This block only ends when channel 100000 is written, and all channels and routines containing it are released. Run the code and you'll see I've printed this in detail. </br>
 
 In Rob Pike's original example, there is another pretty easy explanation, you can refer to: https://stackoverflow.com/questions/26135616/understand-the-code-go-concurrency-pattern-daisy-chain </br>
+
+
+## 8) Google 1_0 <a name="8Google1_0"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/8_google1_0/main.go
+
+I query 3 service and merge result. This is a common job in microservices. All are conducted sequentially and the time to complete the entire job is equal to the total time to complete all the subtasks.
+
+
+## 9) Google 2_0 <a name="9Google2_0"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/9_google2_0/main.go </br>
+
+Similar to pattern 8 but here, with a little runtime improvement. Job query search all run concurrency. The result is merged into 1 channel. The running time is approximately 1/3 of pattern 8. </br>
+
+## 10) Google 2_1 <a name="10Google2_1"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/10_google2_1/main.go </br>
+
+Same as pattern 9 but I want a timeout for all jobs. The syntax mentioned in the previous examples is reused: </br>
+```
+for i := 0; i < 3; i++ {
+    select {
+    case r := <-c:
+        results = append(results, r)
+        // this line ignore the slow server.
+    case <-timeout:
+        fmt.Println("timeout")
+        return results
+    }
+}
+```
+
+Everything works until there is a timeout and the process ends. <br>
+
+
+## 11) Google 3_0 <a name="11Google3_0"></a>
+
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/11_google3_0/main.go </br>
+
+I have many search jobs: photo, video, audio,... Each of those jobs, I have multiple endpoints to get results, I want to get results back from the earliest responding endpoint. The idea: The results are concentrated in one channel and the earliest data pushed into it is considered the earliest response data. </br>
+
+```
+func First(query string, replicas ...Search) Result {
+    c := make(chan Result)
+    for i := range replicas {
+        go func(idx int) {
+        c <- replicas[idx](query)
+        }(i)
+    }
+    // the magic is here. First function always waits for 1 time after receiving the result
+    return <-c
+}
+```
+
+Here, there are many routines that push data to channel c, the first data will be recorded as the earliest. </br>
+
+## 12) Adv ping pong <a name="12AdvPingPong"></a>
+![](img/12_adv_ping_pong.png)
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/12_adv_pingpong/main.go </br>
+
+A sequential scheduling mechanism for 2 routines with 1 channel. Imagine there are two table tennis players named Ping and Pong. The referee throws the ball to Ping, Ping takes it and pushes the ball to Pong. Before the ball was sent to Pong, Pong waited and relaxed. When the ball comes to him, Pong handles and throws back Ping (while Pong handles, Ping also waits and relaxes). That loop will repeat until the referee stops the game. </br>
+
+The idea here is: use a single channel and the blocked mechanism of the channel is to sync 2 routines. </br>
+
+

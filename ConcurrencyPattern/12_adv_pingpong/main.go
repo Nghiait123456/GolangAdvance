@@ -12,7 +12,7 @@ func player(name string, table chan *Ball) {
 		ball := <-table // player grabs the ball
 		ball.hits++
 		fmt.Println(name, ball.hits)
-		time.Sleep(100 * time.Millisecond)
+		time.Sleep(1 * time.Millisecond)
 		table <- ball // pass the ball
 	}
 }
