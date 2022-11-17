@@ -20,7 +20,10 @@
   - [14) Context](#14Context)
   - [15) Ring buffer channel](#15RingBufferChannel)
   - [16) Ring buffer](#16RingBuffer)
-  - [12) Adv ping pong](#12AdvPingPong)
+  - [17) Bug race conditions](#17BugRaceConditions)
+  - [18) Bug sleep in loop](#18BugSleepInLoop)
+  - [19) Bug block channel forever](#19BugBlockChannelForever)
+  - [20) Bug select on nil](#20BugSelectOnNil)
 
 
 ## Introduce <a name="introduce"></a>
@@ -262,3 +265,106 @@ I'm trying to implement the simplest and most basic full-featured ring buffer. T
 Specifically, I try to implement syncs on the atomic package. Package atomic provides low-level atomic memory primitives useful for implementing( synchronization algorithms.atomic.AddUint64(), atomic.Store(), atomic.CompareAndSwap(), .... ). There are quite a few implementations of the ring buffer, either in the same language or in different languages. In addition to complying with the design ring buffer, you need to use the fastest atomic syncs package and the most atomic low level compliant. Specifically, it needs to comply: https://en.wikipedia.org/wiki/Compare-and-swap </br>
 
 On my laptop, my package can handle 30 M read and write commands per second with 2000 routines. It is about 8 times faster than channels in the same environment. </br>
+
+
+## 17) Bug race conditions <a name="17BugRaceConditions"></a>
+![](img/17_race_conditions.png)
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/17_bug_race_conditions/main.go  </br>
+
+Like I said, in golang, almost everything is concurrency. So with shared data, race conditons always exist. Race conditons are one of the most difficult bugs to debug and detect. It can produce errors that are difficult to detect and do not occur in bulk. When the threshold of race conditions is so large that a collision occurs, it will generate an error, and when the error is severe enough to manifest, then the error will be displayed. </br>
+
+Thankfully there are rules and tools to fix most of this problem. First, golang develops the --race option for debugging. "go run --race main.go" : it helps in early detection of race conditons.
+
+A simple programming rule to remember to minimize bug race conditions. With shared data, always use the syncs mechanism, can be any mechanism but always syncs the data. In golang there are: muxtex, channel, atomic, ring buffer, ... The most popular and used is chan. </br>
+
+
+## 18) Bug sleep in loop <a name="18BugSleepInLoop"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/18_bug_sleep_in_loop/main.go </br>
+
+```
+func (s *naiveSub) loop() {
+	// STARTNAIVE OMIT
+	for {
+		if s.closed { // HLsync
+			close(s.updates)
+			return
+		}
+		items, next, err := s.fetcher.Fetch()
+		if err != nil {
+			s.err = err                  // HLsync
+			time.Sleep(10 * time.Second) // HLsleep
+			continue
+		}
+		for _, item := range items {
+			s.updates <- item // HLsend
+		}
+		if now := time.Now(); next.After(now) {
+			time.Sleep(next.Sub(now)) // HLsleep
+		}
+	}
+	// STOPNAIVE OMIT
+}
+```
+Have two times use time.Sleep() in one in loop. This code uses time.Sleep() for timing. When falling into case time sleep, the system will lose realtime, all even during time.Sleep() will not be caught. Use Sleep() only when you are sure there are no events to catch during sleep. Otherwise, the system is not trusted enough, you may lose data </br>
+
+
+## 19) Bug block channel forever <a name="19BugBlockChannelForever"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/19_bug_block_channel_forever/main.go  </br>
+
+```
+func (s *naiveSub) loop() {
+	// STARTNAIVE OMIT
+	for {
+		if s.closed { // HLsync
+			close(s.updates)
+			return
+		}
+		items, next, err := s.fetcher.Fetch()
+		if err != nil {
+			s.err = err                  // HLsync
+			time.Sleep(10 * time.Second) // HLsleep
+			continue
+		}
+		for _, item := range items {
+			s.updates <- item // HLsend
+		}
+		if now := time.Now(); next.After(now) {
+			time.Sleep(next.Sub(now)) // HLsleep
+		}
+	}
+	// STOPNAIVE OMIT
+}
+```
+Print "s.updates <- item // HLsend", if there is no read <-s.updates anywhere, the s.Update channel will be suspended until there is room to read it. This can be used as a mechanism to lock and wait for the routine, or if it's unintentional, it's an error. </br>
+
+
+## 20) Bug select on nil <a name="20BugSelectOnNil"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/20_bug_channel_selecter_on_nil/main.go  </br>
+
+```
+	go func() {
+		a = nil // HL
+		fmt.Println("start push to nil chan")
+		a <- "ssss"
+		fmt.Println("done push to nil chan")
+	}()
+
+	go func() {
+		a = nil // HL
+		fmt.Println("get from nil channel")
+		<-a
+		fmt.Println("done get from nil channel")
+	}()
+```
+```
+for {
+			select {
+			case s := <-a:
+				fmt.Println("have data in nil chan")
+				fmt.Println("got", s)
+			case s := <-b:
+				fmt.Println("got", s)
+			}
+		}
+```
+A channel is set to nil, reading and writing on it will be blocked </br>

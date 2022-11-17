@@ -16,29 +16,39 @@ func init() {
 func main() {
 	a, b := make(chan string), make(chan string)
 	go func() { a <- "a" }()
-	go func() { b <- "b" }()
 	go func() {
+		for {
+			b <- "b"
+			time.Sleep(1 * time.Second)
+		}
+	}()
+
+	go func() {
+		fmt.Println("nil a")
 		a = nil // HL
 		fmt.Println("start push to nil chan")
 		a <- "ssss"
 		fmt.Println("done push to nil chan")
 	}()
 
-	if rand.Intn(2) == 0 {
-		a = nil // HL
-		fmt.Println("nil a")
-	} else {
-		b = nil // HL
-		fmt.Println("nil b")
-	}
 	go func() {
-		select {
-		case s := <-a:
-			fmt.Println("have data in nil chan")
-			fmt.Println("got", s)
-		case s := <-b:
-			fmt.Println("got", s)
+		a = nil // HL
+		fmt.Println("get from nil channel")
+		<-a
+		fmt.Println("done get from nil channel")
+	}()
+
+	go func() {
+		for {
+			select {
+			case s := <-a:
+				fmt.Println("have data in nil chan")
+				fmt.Println("got", s)
+			case s := <-b:
+				fmt.Println("got", s)
+			}
 		}
+
 	}()
 
 	time.Sleep(1000 * time.Second)
