@@ -399,6 +399,6 @@ func benchChannel() {
 func main() {
 	//testWriteAndRead()
 	//testReadWaitWrite(50000)
-	benchMarkRing(4000)
+	benchMarkRing(1000)
 	//benchChannel()
 }

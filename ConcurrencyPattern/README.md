@@ -16,6 +16,11 @@
   - [10) Google 2_1](#10Google2_1)
   - [11) Google 3_0](#11Google3_0)
   - [12) Adv ping pong](#12AdvPingPong)
+  - [13) Adv subscription](#13AdvSubscription)
+  - [14) Context](#14Context)
+  - [15) Ring buffer channel](#15RingBufferChannel)
+  - [16) Ring buffer](#16RingBuffer)
+  - [12) Adv ping pong](#12AdvPingPong)
 
 
 ## Introduce <a name="introduce"></a>
@@ -199,3 +204,61 @@ A sequential scheduling mechanism for 2 routines with 1 channel. Imagine there a
 The idea here is: use a single channel and the blocked mechanism of the channel is to sync 2 routines. </br>
 
 
+## 13) Adv subscription <a name="13AdvSubscription"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/13_adv_subscription/main.go </br>
+
+I want to be more professional for fetch, an automatic getData, filter and merger, timeout and quit job. It is still based on the structure of : </br>
+```
+for {
+select {
+         case :
+         }
+}
+```
+
+```
+merged := Merge(
+    Subscribe(Fetch("blog.golang.org")),
+    Subscribe(Fetch("googleblog.blogspot.com")),
+    Subscribe(Fetch("googledevelopers.blogspot.com")),
+)
+```
+Fetch() does the sole job of fetching data, Subcribe() creates a loop, controls the loop one stream fetch and merge data, quit stream. Merger() controls Subcribes, controls all Subcribes() for different loop streams. </br>
+
+
+## 14) Context  <a name="14Context"></a>
+![](img/14_context.png)
+
+Example in: https://github.com/Nghiait123456/GolangAdvance/tree/master/ConcurrencyPattern/14_context </br>
+
+In golang, everything is pretty much concurrency, and each of those threads always needs a set of its context. This context set is unique to it, it provides basic information: how long have I been running, what schedules or appointments do I have, what specific data do I contain... Imagine , it's like a container but a bit specific, this container contains the state of the running go routines. </br>
+
+Team golang has developed a packet base: context. It serves the problems given above, and it is the base of extended contexts in other tools. Most web frameworks, auto tools,... are based on it and develop their own context. Context is an integral part of most tool bases on golang. </br>
+
+
+View source: https://github.com/golang/go/blob/master/src/context/context.go The Context develops completely based on the patterns I showed before, however, it has some dark superior in syncs performance. Its basic principles remain the same, it has been quite clearly outlined in the previous patterns. In this section, I will not dissect it in detail, it is presented in another document. </br>
+
+## 15) Ring buffer channel  <a name="15RingBufferChannel"></a>
+![](img/15_ring_bufer_channel.png)
+Example in: https://github.com/Nghiait123456/GolangAdvance/tree/master/ConcurrencyPattern/15_ring_buffer_channel </br>
+
+A meridian syncs data structure is the ringbuffer. This is probably the fastest pattern available today. I want to use its properties applied to the channel with the ring buffer channel. It won't have the same performance as ringbuffer but it has full pattern composition, read/write separation, etc. Again, it's not faster than a normal channel (because it's based on a channel), it's not as fast either ring (for not following the rules of ring). </br>
+
+In the original post: https://tanzu.vmware.com/content/blog/a-channel-based-ring-buffer-in-go, the author develops a ring buffer with a limit out stream mechanism. The idea is simple: Connect two buffered channels through one goroutine that forwards messages from the incoming channel to the outgoing channel. Whenever a new message can not be placed on the outgoing channel, take one message out of the outgoing channel (that is the oldest message in the buffer), drop it, and place the new message in the newly freed up outgoing channel </br>
+
+With the ring-buffer channel having no limit, I simply skip taking the element when the limit is and declare the channel to have no limit. </br>
+
+Both of these patterns are implemented in the example link. </br>
+
+
+## 16) Ring buffer <a name="16RingBuffer"></a>
+![](img/16_ring_buffer.png)
+Example in: https://github.com/Nghiait123456/GolangAdvance/tree/master/ConcurrencyPattern/15_ring_buffer_channel </br>
+
+I'm trying to implement the simplest and most basic full-featured ring buffer. The essence of why ring buffer is fast: </br>
+1) exclusive separation </br>
+2) use os-level quick command to handle race condition </br>
+
+Specifically, I try to implement syncs on the atomic package. Package atomic provides low-level atomic memory primitives useful for implementing( synchronization algorithms.atomic.AddUint64(), atomic.Store(), atomic.CompareAndSwap(), .... ). There are quite a few implementations of the ring buffer, either in the same language or in different languages. In addition to complying with the design ring buffer, you need to use the fastest atomic syncs package and the most atomic low level compliant. Specifically, it needs to comply: https://en.wikipedia.org/wiki/Compare-and-swap </br>
+
+On my laptop, my package can handle 30 M read and write commands per second with 2000 routines. It is about 8 times faster than channels in the same environment. </br>

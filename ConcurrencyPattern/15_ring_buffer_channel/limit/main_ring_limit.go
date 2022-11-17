@@ -46,5 +46,4 @@ func main() {
 	for res := range outCh {
 		log.Println(res)
 	}
-
 }
