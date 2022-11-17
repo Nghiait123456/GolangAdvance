@@ -269,6 +269,7 @@ func (s *sub) loop() {
 		var first Item
 		var updates chan Item
 		if len(pending) > 0 {
+			fmt.Println("--------------------------------------------len pending >0, pop first element")
 			first = pending[0]
 			updates = s.updates // enable send case
 		}
@@ -292,8 +293,9 @@ func (s *sub) loop() {
 			}
 			for _, item := range fetched {
 				if id := item.GUID; !seen[id] { // HLdupe
+					fmt.Println("----------------------------------------------foreach add data to pending")
 					pending = append(pending, item)
-					seen[id] = true // HLdupe
+					seen[id] = true // HLduped
 				}
 			}
 		case errc := <-s.closing:
@@ -301,6 +303,7 @@ func (s *sub) loop() {
 			close(s.updates)
 			return
 		case updates <- first:
+			fmt.Println("----------------------------------push first to update")
 			pending = pending[1:]
 		}
 	}

@@ -22,7 +22,12 @@
   - [16) Ring buffer](#16RingBuffer)
   - [17) Bug race conditions](#17BugRaceConditions)
   - [18) Bug sleep in loop](#18BugSleepInLoop)
-  - [19) Bug block channel forever](#19BugBlockChannelForever)
+  - [19) Bug lock channel forever](#19BugLockChannelForever)
+  - [20) Bug select on nil](#20BugSelectOnNil)
+  - [21) Fix bug race conditions](#21FixBugRaceConditions)
+  - [22) Fix bug lock channel forever](#22FixBugLockChannelForever)
+  - [23) Fix bug sleep in loop](#23FixBugSleepInLoop)
+  - [20) Bug select on nil](#20BugSelectOnNil)
   - [20) Bug select on nil](#20BugSelectOnNil)
 
 
@@ -308,7 +313,7 @@ func (s *naiveSub) loop() {
 Have two times use time.Sleep() in one in loop. This code uses time.Sleep() for timing. When falling into case time sleep, the system will lose realtime, all even during time.Sleep() will not be caught. Use Sleep() only when you are sure there are no events to catch during sleep. Otherwise, the system is not trusted enough, you may lose data </br>
 
 
-## 19) Bug block channel forever <a name="19BugBlockChannelForever"></a>
+## 19) Bug lock channel forever <a name="19BugLockChannelForever"></a>
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/19_bug_block_channel_forever/main.go  </br>
 
 ```
@@ -368,3 +373,45 @@ for {
 		}
 ```
 A channel is set to nil, reading and writing on it will be blocked </br>
+
+
+## 21) Fix bug race conditions <a name="21FixBugRaceConditions"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/20_bug_channel_selecter_on_nil/main.go  </br>
+
+```
+	case errc := <-s.closing: // HLcases
+			errc <- err
+			close(s.updates)
+			return
+```
+The idea is to use some kind of synchronization mechanism. Here, I use the most common way of using chan. </br>
+
+
+## 22) Fix bug lock channel forever <a name="22FixBugLockChannelForever"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/22_fix_bug_block_channel_forever/main.go </br>
+
+```
+	case updates <- first:
+			fmt.Println("----------------------------------push first to update")
+			pending = pending[1:]
+```
+```
+	if len(pending) > 0 {
+			fmt.Println("--------------------------------------------len pending >0, pop first element")
+			first = pending[0]
+			updates = s.updates // enable send case
+		}
+
+```
+```
+			for _, item := range fetched {
+				if id := item.GUID; !seen[id] { // HLdupe
+					fmt.Println("----------------------------------------------foreach add data to pending")
+					pending = append(pending, item)
+					seen[id] = true // HLduped
+				}
+			}
+```
+In this pattern, Google has created a pending buffer, when len(pending) > 0, enable channel update, "updates = s.updates // enable send case", data will be sequentially pushed to the s.updates channel through an intermediary. first. Personally, this pattern is a bit complicated to use, I will suggest a simpler pattern to replace it below. </br>
+
+[23) Fix bug sleep in loop](#23FixBugSleepInLoop)
