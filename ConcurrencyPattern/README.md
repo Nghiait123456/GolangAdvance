@@ -1,4 +1,4 @@
-- [introduce](#introduce)
+- [Introduce](#Introduce)
 - [What is Concurrency?](#WhatIsConcurrency?)
 - [Why use concurrency?](#WhyUseConcurrency?)
 - [Distinctive concurrency and parallelism?](#DistinctiveConcurrencyAndParallelism?)
@@ -36,7 +36,7 @@
   - [30) Best practice use worker pool](#30BestPracticeUseWorkerPool)
 
   
-## Introduce <a name="introduce"></a>
+## Introduce <a name="Introduce"></a>
 In golang, everything is concurrency, almost : worker of a webserver, worker of a certain process, worker of a certain tool. Concurrency is a built-in mechanism at the language layer of golang. Working with concurrency has never been easy. One thing is a must, you must have a pattern when working with concurrency, experience in using and debugging concurrently. If you don't follow a certain concurrency pattern, everything will mess up, there will be bugs that are unpredictable and difficult to control </br>
 I and you dissect the level increment simultaneously, along with the best practices when using it. </br>
 Concurrency:  easy to start, but not easy to stop. Here we go!!! </br>
