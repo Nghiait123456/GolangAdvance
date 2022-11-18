@@ -34,6 +34,8 @@
   - [28) Handle very larger jobs in one instance](#28HandleVeryLargerJobsInOneInstance)
   - [29) Worker pool advance remote cache](#29WorkerPoolAdvanceRemoteCache)
   - [30) Best practice use worker pool](#30BestPracticeUseWorkerPool)
+  - [31) Simple http server](#31SimpleHttpServer)
+
 
   
 ## Introduce <a name="Introduce"></a>
@@ -475,3 +477,47 @@ In a microservice, when you need a large number of workers running on multiple i
 ## 30) Best practice use worker pool <a name="30BestPracticeUseWorkerPool"></a>
 The more common question: when to use worker pool packets, when to write your own worker job. For me, when there is a job with not high logical complexity, not closely related to the order or timing of jobs, does not require data aggregation of many jobs, needs to run in the background to reduce response time, ... Those are the cases where I use packet workerpoll to reduce code development time. Concurrency cases have strict logic and multiple merger data logic, I develop concurrency tool just for that job. </br>
 
+## 31) Simple http server  <a name="31SimpleHttpServer"></a>
+![](img/31_http_server.png) </br>
+Another very popular concurrency model is http server. I have a generic network listener for stream-oriented protocols. I have a loop, it will wait for and returns the next connection to the listener. Each request to the server is assigned a routine handle. </br>
+
+```
+	for {
+		rw, err := l.Accept()
+		if err != nil {
+			select {
+			case <-srv.getDoneChan():
+				return ErrServerClosed
+			default:
+			}
+			if ne, ok := err.(net.Error); ok && ne.Temporary() {
+				if tempDelay == 0 {
+					tempDelay = 5 * time.Millisecond
+				} else {
+					tempDelay *= 2
+				}
+				if max := 1 * time.Second; tempDelay > max {
+					tempDelay = max
+				}
+				srv.logf("http: Accept error: %v; retrying in %v", err, tempDelay)
+				time.Sleep(tempDelay)
+				continue
+			}
+			return err
+		}
+		connCtx := ctx
+		if cc := srv.ConnContext; cc != nil {
+			connCtx = cc(connCtx, rw)
+			if connCtx == nil {
+				panic("ConnContext returned nil")
+			}
+		}
+		tempDelay = 0
+		c := srv.newConn(rw)
+		c.setState(c.rwc, StateNew, runHooks) // before Serve can return
+		go c.serve(connCtx)
+	}
+```
+
+
+Here is the source code handle http-server of net/http. In terms of algorithm, it's exactly the same as my algo, but they have more logic, more work to handle, so there will be more case. However, the algorithm is unchanged. </br>
