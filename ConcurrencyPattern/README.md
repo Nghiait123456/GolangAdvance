@@ -157,7 +157,7 @@ In Rob Pike's original example, there is another pretty easy explanation, you ca
 
 
 ## 8) Google 1_0 <a name="8Google1_0"></a>
-Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/8_google1_0/main.go
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/8_google1_0/main.go </br>
 
 I query 3 service and merge result. This is a common job in microservices. All are conducted sequentially and the time to complete the entire job is equal to the total time to complete all the subtasks.
 
@@ -209,7 +209,7 @@ func First(query string, replicas ...Search) Result {
 Here, there are many routines that push data to channel c, the first data will be recorded as the earliest. </br>
 
 ## 12) Adv ping pong <a name="12AdvPingPong"></a>
-![](img/12_adv_ping_pong.png)
+![](img/12_adv_ping_pong.png) </br>
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/12_adv_pingpong/main.go </br>
 
 A sequential scheduling mechanism for 2 routines with 1 channel. Imagine there are two table tennis players named Ping and Pong. The referee throws the ball to Ping, Ping takes it and pushes the ball to Pong. Before the ball was sent to Pong, Pong waited and relaxed. When the ball comes to him, Pong handles and throws back Ping (while Pong handles, Ping also waits and relaxes). That loop will repeat until the referee stops the game. </br>
@@ -240,7 +240,7 @@ Fetch() does the sole job of fetching data, Subcribe() creates a loop, controls 
 
 
 ## 14) Context  <a name="14Context"></a>
-![](img/14_context.png)
+![](img/14_context.png) </br>
 
 Example in: https://github.com/Nghiait123456/GolangAdvance/tree/master/ConcurrencyPattern/14_context </br>
 
@@ -252,7 +252,7 @@ Team golang has developed a packet base: context. It serves the problems given a
 View source: https://github.com/golang/go/blob/master/src/context/context.go The Context develops completely based on the patterns I showed before, however, it has some dark superior in syncs performance. Its basic principles remain the same, it has been quite clearly outlined in the previous patterns. In this section, I will not dissect it in detail, it is presented in another document. </br>
 
 ## 15) Ring buffer channel  <a name="15RingBufferChannel"></a>
-![](img/15_ring_bufer_channel.png)
+![](img/15_ring_bufer_channel.png) </br>
 Example in: https://github.com/Nghiait123456/GolangAdvance/tree/master/ConcurrencyPattern/15_ring_buffer_channel </br>
 
 A meridian syncs data structure is the ringbuffer. This is probably the fastest pattern available today. I want to use its properties applied to the channel with the ring buffer channel. It won't have the same performance as ringbuffer but it has full pattern composition, read/write separation, etc. Again, it's not faster than a normal channel (because it's based on a channel), it's not as fast either ring (for not following the rules of ring). </br>
@@ -265,7 +265,7 @@ Both of these patterns are implemented in the example link. </br>
 
 
 ## 16) Ring buffer <a name="16RingBuffer"></a>
-![](img/16_ring_buffer.png)
+![](img/16_ring_buffer.png) </br>
 Example in: https://github.com/Nghiait123456/GolangAdvance/tree/master/ConcurrencyPattern/15_ring_buffer_channel </br>
 
 I'm trying to implement the simplest and most basic full-featured ring buffer. The essence of why ring buffer is fast: </br>
@@ -278,12 +278,12 @@ On my laptop, my package can handle 30 M read and write commands per second with
 
 
 ## 17) Bug race conditions <a name="17BugRaceConditions"></a>
-![](img/17_race_conditions.png)
+![](img/17_race_conditions.png) </br>
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/17_bug_race_conditions/main.go  </br>
 
 Like I said, in golang, almost everything is concurrency. So with shared data, race conditons always exist. Race conditons are one of the most difficult bugs to debug and detect. It can produce errors that are difficult to detect and do not occur in bulk. When the threshold of race conditions is so large that a collision occurs, it will generate an error, and when the error is severe enough to manifest, then the error will be displayed. </br>
 
-Thankfully there are rules and tools to fix most of this problem. First, golang develops the --race option for debugging. "go run --race main.go" : it helps in early detection of race conditons.
+Thankfully there are rules and tools to fix most of this problem. First, golang develops the --race option for debugging. "go run --race main.go" : it helps in early detection of race conditons. </br>
 
 A simple programming rule to remember to minimize bug race conditions. With shared data, always use the syncs mechanism, can be any mechanism but always syncs the data. In golang there are: muxtex, channel, atomic, ring buffer, ... The most popular and used is chan. </br>
 
@@ -448,7 +448,7 @@ Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/Concurren
 The examples by Rob Pike and google are not too cleary and friendly for newbie. I tried to rewrite a cleaner code, using data chan and select, patterns already. Everything works smoothly and describes the nature of the auto fetch data tool. Up to this point, you can implement any concurrecny tool for just about anything using the concurrency knowledge acquired in this document </br>
 
 ## 25) Worker pool simple <a name="25WorkerPoolSimple"></a>
-![](img/25_worker_pool_simple.png)
+![](img/25_worker_pool_simple.png) </br>
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/25_worker_pool_simple/main.go
 
 The simplest version of the worker pool. I create a group of workers base on routine, one filled with jobs. Jobs are pushed in via chan and workers auto handle it </br>
@@ -462,7 +462,7 @@ A more advanced and convenient version of worker pool will include features: aut
 A little more advanced, I have a bunch of jobs running and when they're completely done, I move on. I need workerpool to give me more options. Again, these options are all theoretically based on the previous sections. These features are also covered in the previous section. </br>
 
 ## 28) Handle very larger jobs in one instance <a name="28HandleVeryLargerJobsInOneInstance"></a>
-![](img/29_high_performance_worker_pool.png)
+![](img/29_high_performance_worker_pool.png) </br>
 There are very good investment and processing libraries in terms of performance, which can handle tens of millions of jobs with 50 KB of ram and less than a minute of time. For example: https://github.com/panjf2000/ants. This is a very high performing library on workerpool base on goroutine. If you have a job that requires high-performance processing, use it, which saves costs and reduces rework of the wheel. </br>
 
 
