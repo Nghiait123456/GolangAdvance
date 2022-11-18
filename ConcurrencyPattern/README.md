@@ -27,10 +27,15 @@
   - [21) Fix bug race conditions](#21FixBugRaceConditions)
   - [22) Fix bug lock channel forever](#22FixBugLockChannelForever)
   - [23) Fix bug sleep in loop](#23FixBugSleepInLoop)
-  - [20) Bug select on nil](#20BugSelectOnNil)
-  - [20) Bug select on nil](#20BugSelectOnNil)
+  - [24) Clear example smart fetch](#24ClearExampleSmartFetch)
+  - [25) Worker pool simple](#25WorkerPoolSimple)
+  - [26) Worker pool advance](#26WorkerPoolAdvance)
+  - [27) Worker pool advance flexible](#27WorkerPoolAdvanceFlexible)
+  - [28) Handle very larger jobs in one instance](#28HandleVeryLargerJobsInOneInstance)
+  - [29) Worker pool advance remote cache](#29WorkerPoolAdvanceRemoteCache)
+  - [30) Best practice use worker pool](#30BestPracticeUseWorkerPool)
 
-
+  
 ## Introduce <a name="introduce"></a>
 In golang, everything is concurrency, almost : worker of a webserver, worker of a certain process, worker of a certain tool. Concurrency is a built-in mechanism at the language layer of golang. Working with concurrency has never been easy. One thing is a must, you must have a pattern when working with concurrency, experience in using and debugging concurrently. If you don't follow a certain concurrency pattern, everything will mess up, there will be bugs that are unpredictable and difficult to control </br>
 I and you dissect the level increment simultaneously, along with the best practices when using it. </br>
@@ -414,4 +419,59 @@ Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/Concurren
 ```
 In this pattern, Google has created a pending buffer, when len(pending) > 0, enable channel update, "updates = s.updates // enable send case", data will be sequentially pushed to the s.updates channel through an intermediary. first. Personally, this pattern is a bit complicated to use, I will suggest a simpler pattern to replace it below. </br>
 
-[23) Fix bug sleep in loop](#23FixBugSleepInLoop)
+## 23) Fix bug sleep in loop <a name="23FixBugSleepInLoop"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/22_fix_bug_block_channel_forever/main.go </br>
+
+```
+		var fetchDelay time.Duration // initially 0 (no delay)
+		if now := time.Now(); next.After(now) {
+			fetchDelay = next.Sub(now)
+		}
+		startFetch := time.After(fetchDelay)
+
+		select {
+		case <-startFetch:
+			var fetched []Item
+			fetched, next, err = s.fetcher.Fetch()
+			if err != nil {
+				next = time.Now().Add(10 * time.Second)
+				break
+			}
+			pending = append(pending, fetched...)
+		}
+```
+Still the familiar structure of golang, I use timer.After(), the essence of this is that it waits until the chanel has data </br>
+
+## 24) Clear example smart fetch <a name="24ClearExampleSmartFetch"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/22_fix_bug_block_channel_forever/main.go </br>
+
+The examples by Rob Pike and google are not too cleary and friendly for newbie. I tried to rewrite a cleaner code, using data chan and select, patterns already. Everything works smoothly and describes the nature of the auto fetch data tool. Up to this point, you can implement any concurrecny tool for just about anything using the concurrency knowledge acquired in this document </br>
+
+## 25) Worker pool simple <a name="25WorkerPoolSimple"></a>
+![](img/25_worker_pool_simple.png)
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/25_worker_pool_simple/main.go
+
+The simplest version of the worker pool. I create a group of workers base on routine, one filled with jobs. Jobs are pushed in via chan and workers auto handle it </br>
+
+## 26) Worker pool advance <a name="26WorkerPoolAdvance"></a>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/26_worker_pool_advance/main.go </br>
+
+A more advanced and convenient version of worker pool will include features: automatic worker creation, control timeout, automatic cleary memory chan when worker is down, easy to use... The code in the above link is an example of it. </br>
+
+## 27) Worker pool advance flexible <a name="27WorkerPoolAdvanceFlexible"></a>
+A little more advanced, I have a bunch of jobs running and when they're completely done, I move on. I need workerpool to give me more options. Again, these options are all theoretically based on the previous sections. These features are also covered in the previous section. </br>
+
+## 28) Handle very larger jobs in one instance <a name="28HandleVeryLargerJobsInOneInstance"></a>
+![](img/29_high_performance_worker_pool.png)
+There are very good investment and processing libraries in terms of performance, which can handle tens of millions of jobs with 50 KB of ram and less than a minute of time. For example: https://github.com/panjf2000/ants. This is a very high performing library on workerpool base on goroutine. If you have a job that requires high-performance processing, use it, which saves costs and reduces rework of the wheel. </br>
+
+
+## 29) Worker pool advance remote cache <a name="29WorkerPoolAdvanceRemoteCache"></a>
+![](img/28_worker_pool_remote_cache.png) </br>
+Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/28_worker_pool_advance_remote_cache/main.go
+
+In a microservice, when you need a large number of workers running on multiple instances, you need to scale out that worker. One meridian model is to use remote cache. Jobs from many places will push to remote cache, workers from anywhere will get jobs from cache and process it. This model can scaleout almost endlessly, it can handle extremely large number of jobs. </br>
+
+## 30) Best practice use worker pool <a name="30BestPracticeUseWorkerPool"></a>
+The more common question: when to use worker pool packets, when to write your own worker job. For me, when there is a job with not high logical complexity, not closely related to the order or timing of jobs, does not require data aggregation of many jobs, needs to run in the background to reduce response time, ... Those are the cases where I use packet workerpoll to reduce code development time. Concurrency cases have strict logic and multiple merger data logic, I develop concurrency tool just for that job. </br>
+
