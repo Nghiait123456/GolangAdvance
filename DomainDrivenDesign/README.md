@@ -4,12 +4,25 @@
   - [Layout](#Layout)
   - [Domain](#Domain)
   - [Entity](#Enity)
+
   - [Infrastructure](#Infrastructure)
+    - [Repositories](#Repositories)
+
   - [User Interface](#UserInterface)
+    - [DTO](#DTO)
+    - [API Interface](#APIInterface)
+    - [WEB Interface](#WEBInterface)
+    
   - [Packet layer](#PacketLayer)
   - [Application](#Application)
+    - [Services](#Services)
+    
   - [Value Object](#ValueObject)
   - [Aggregate](#Aggregate)
+  - [Modules](#Modules)
+
+
+  
 
 
     
@@ -44,8 +57,13 @@ An entity will be instantiated and used for many services, it is unique so there
 
 ## Infrastructure <a name="Infrastructure"></a>
 ![](img/infra.png) </br>
+balance/infrastructure: please view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/infrastructure </br>
 Infrastructure is all code directly related to infrastructure. Infrastructure has a lot of things: cache, files, CDN, DB, message queue, http server, socket, rtmp,... In ddd, all the code or libraries that manipulate and setup directly with the infrastructure should be stored in the infrastructure layout </ br>
 There is a classic question that gets many opinions: Should repositories be saved in the domain layout or the infrastructure layout. For me, I want to keep the domain as minimal logic that domain has, so I usually put the repository and infrastructure. (A good discussion: https://stackoverflow.com/questions/3499119/which-layer-should-repositories-go-in, https://learn.microsoft.com/en-us/dotnet/architecture/microservices /microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design). <br>
+
+## Repositories <a name="Repositories"></a>
+Please view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/infrastructure/db/repository </br>
+Repositories are classes or components that encapsulate the logic required to access data sources. They centralize common data access functionality, providing better maintainability and decoupling the infrastructure or technology used to access databases from the domain model layer. Repositories are familiar and popular with most web app developers. In ddd I put the repo in the infrastructure. </br>
 
 
 ## User Interface <a name="UserInterface"></a>
@@ -64,6 +82,10 @@ In this design, pkg will synthesize all the code logic that is not in a specific
 Please view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/application </br>
 Application is a thin layer that is intermediate between the user interface and the domain. Domain layout is the soul of ddd, domain needs to be kept independent logic, not much influenced by layout user interface as well as other layout. Application is a lightweight class, intermediate between interfaces and domains, to accomplish this purpose. Specifically, Application will perform most of the connection functions between interface and domain, return object of domain, convert result from domain to JSON, XML is also often implemented in this layout. </br>
 
+## Services <a name="Services"></a>
+Please view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/blob/master/balance/application/service.go
+A thin layer I put in application. Application is a thin layout connecting the interface to the domain. In the Application, I create a thin class that is a service that aggregates all the interfaces that the Application must have, also where the user interface will interact with the Application. </br>
+
 
 ## Value Object <a name="ValueObject"></a>
 ![](img/value_object.png) </br>
@@ -72,14 +94,26 @@ A Value object is an unidentified, immutable object that is created and used dur
 A large value object will be associated with a lot of development code, in golang, a function will be associated with that code. I keep value objects like that in the layout domain. Please view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/blob/master/balance/domain/command/calculator/init_all_partner_balance.go#L18-L25, https://github.com/i-love-flamingo /flamingo-commerce/blob/master/cart/domain/cart/cart.go#L18-L87. This is a peculiarity of golang, the large value object goes hand in hand with interface and function, and I have kept it in this design </br>
 
 ## Aggregate <a name="Aggregate"></a>
+![](img/value_object.png) </br>
 ![](img/aggregate.png) </br>
 
-Entities and objects in the project have complex relationships, there are many interactions and operations on them to give a composite result. Naturally, I needed to group closely related value objetcs and entities into a cluster for easy development. This is the premise of Aggregate. </br>
+Entities and objects in the project have complex relationships, there are many interactions and operations on them to give a composite result. Naturally, I needed to group closely related value objects and entities into a cluster for easy development. This is the premise of Aggregate. </br>
 
 An aggregate is a group of objects, which has can be viewed as a unified unit for data changes. Each aggregate usually has a root, that root is entity. An aggregate root will interact with objects in the aggregate, and objects outside of the aggregate will interact only with the aggregate root. There are very few cases where there are multiple enities in an aggregate, if so, there will always be a single agggragate root that interacts with the object outside the aggragate. </br>
 
 
-The root aggregate is a bridge for interaction between the outside and the inside of the aggreagate. All read, write, and process interactions will go through the root aggregate. This is the most important rule for an aggregate to ensure data integrity. If as aggregate of Aggregate was Save in Database, only direct queries should be allowed to retrieve the origin of the aggregate, the contents of the object should be accessed through relationships inside. </br>
+The root aggregate is a bridge for interaction between the outside and the inside of the aggregate. All read, write, and process interactions will go through the root aggregate. This is the most important rule for an aggregate to ensure data integrity. If as aggregate of Aggregate was saved in Database, only direct queries should be allowed to retrieve the origin of the aggregate, the contents of the object should be accessed through relationships inside. </br>
 
-Choosing the boundary for aggragate is not an easy job, requires a lot of experience and domain knowledge. Aggragate itself is not a clear definition like entity or value object, choosing the right aggragate greatly affects the maintainability of ddd. In this design, I put the aggragate in the layout domain. Example: https://github.com/percybolmer/ddd-go/blob/master/aggregate/customer.go#L18-L26, https://levelup.gitconnected.com/practical-ddd-in-golang-aggregate- de13f561e629. <br>
+Choosing the boundary for aggregate is not an easy job, requires a lot of experience and domain knowledge. Aggregate itself is not a clear definition like entity or value object, choosing the right aggregate greatly affects the maintainability of ddd. In this design, I put the aggregate in the layout domain. Example: https://github.com/percybolmer/ddd-go/blob/master/aggregate/customer.go#L18-L26, https://levelup.gitconnected.com/practical-ddd-in-golang-aggregate-de13f561e629. <br>
 
+
+
+## Module <a name="Module"></a>
+Please view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/blob/master/balance/module.go.
+A thin layer is created for the purpose of concatenating all the layout, construction, and configuration information needed for the service to run. It needs to ensure the correct pairing, flexibility, and customization. To run the service, run module. </br>
+
+
+todo:    - [DTO](#DTO)
+- [API Interface](#APIInterface)
+- [WEB Interface](#WEBInterface)
+updtae layout hop ly
