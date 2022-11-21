@@ -8,7 +8,7 @@
   - [User Interface](#UserInterface)
   - [Packet layer](#PacketLayer)
   - [Application](#Application)
-
+  - [Value Object](#ValueObject)
 
     
 
@@ -58,3 +58,12 @@ In this design, pkg will synthesize all the code logic that is not in a specific
 
 
 ## Application <a name="Application"></a>
+![](img/application.png) </br>
+Please view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/application </br>
+Application is a thin layer that is intermediate between the user interface and the domain. Domain layout is the soul of ddd, domain needs to be kept independent logic, not much influenced by layout user interface as well as other layout. Application is a lightweight class, intermediate between interfaces and domains, to accomplish this purpose. Specifically, Application will perform most of the connection functions between interface and domain, return object of domain, convert result from domain to JSON, XML is also often implemented in this layout. </br>
+
+
+## Value Object <a name="ValueObject"></a>
+![](img/value_object.png) </br>
+Please view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/value_object </br>
+A Value object is an unidentified, immutable object that is created and used during its lifetime and can be shared for reading. For a different value, create a new object. A tip to distinguish, a smallest object, when it is not an entity, it will usually be a value object. </br>
