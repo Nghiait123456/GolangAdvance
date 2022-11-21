@@ -37,7 +37,7 @@ func main1() {
 
 //explain:
 /**
- in main.go edit function main to main1, in file main1.go edit function man1 to main.
+ in main_ring_limit.go edit function main to main1, in file main1.go edit function man1 to main.
  run code main1.go, code run success
 
  if uncmt line 34, i = s2Val, you run and get error:
