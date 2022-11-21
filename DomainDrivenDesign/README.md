@@ -9,6 +9,8 @@
   - [Packet layer](#PacketLayer)
   - [Application](#Application)
   - [Value Object](#ValueObject)
+  - [Aggregate](#Aggregate)
+
 
     
 
@@ -67,3 +69,17 @@ Application is a thin layer that is intermediate between the user interface and 
 ![](img/value_object.png) </br>
 Please view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/value_object </br>
 A Value object is an unidentified, immutable object that is created and used during its lifetime and can be shared for reading. For a different value, create a new object. A tip to distinguish, a smallest object, when it is not an entity, it will usually be a value object. </br>
+A large value object will be associated with a lot of development code, in golang, a function will be associated with that code. I keep value objects like that in the layout domain. Please view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/blob/master/balance/domain/command/calculator/init_all_partner_balance.go#L18-L25, https://github.com/i-love-flamingo /flamingo-commerce/blob/master/cart/domain/cart/cart.go#L18-L87. This is a peculiarity of golang, the large value object goes hand in hand with interface and function, and I have kept it in this design </br>
+
+## Aggregate <a name="Aggregate"></a>
+![](img/aggregate.png) </br>
+
+Entities and objects in the project have complex relationships, there are many interactions and operations on them to give a composite result. Naturally, I needed to group closely related value objetcs and entities into a cluster for easy development. This is the premise of Aggregate. </br>
+
+An aggregate is a group of objects, which has can be viewed as a unified unit for data changes. Each aggregate usually has a root, that root is entity. An aggregate root will interact with objects in the aggregate, and objects outside of the aggregate will interact only with the aggregate root. There are very few cases where there are multiple enities in an aggregate, if so, there will always be a single agggragate root that interacts with the object outside the aggragate. </br>
+
+
+The root aggregate is a bridge for interaction between the outside and the inside of the aggreagate. All read, write, and process interactions will go through the root aggregate. This is the most important rule for an aggregate to ensure data integrity. If as aggregate of Aggregate was Save in Database, only direct queries should be allowed to retrieve the origin of the aggregate, the contents of the object should be accessed through relationships inside. </br>
+
+Choosing the boundary for aggragate is not an easy job, requires a lot of experience and domain knowledge. Aggragate itself is not a clear definition like entity or value object, choosing the right aggragate greatly affects the maintainability of ddd. In this design, I put the aggragate in the layout domain. Example: https://github.com/percybolmer/ddd-go/blob/master/aggregate/customer.go#L18-L26, https://levelup.gitconnected.com/practical-ddd-in-golang-aggregate- de13f561e629. <br>
+
