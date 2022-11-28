@@ -1,10 +1,11 @@
 - [Introduce](#Introduce)
 - [ConcurrencyPattern](#ConcurrencyPattern)
+- [DomainDrivenDesign](#DomainDrivenDesign)
+- [Proverbs](#Proverbs)
+- [DI](#DI)
 - [Guidelines](#Guidelines)
 - [Style](#Style)
-- [DI](#DI)
-- [Proverbs](#Proverbs)
-- [DomainDrivenDesign](#DomainDrivenDesign)
+
 
 ## Introduce <a name="Introduce"></a>
 
@@ -20,13 +21,13 @@ Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/Concurre
 
 Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/DomainDrivenDesign </br>
 
-## DI <a name="DI"></a>
-
-Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/DI </br>
-
 ## Proverbs <a name="Proverbs"></a>
 
 Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/Proverbs </br>
+
+## DI <a name="DI"></a>
+
+Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/DI </br>
 
 ## Guidelines <a name="Guidelines"></a>
 
