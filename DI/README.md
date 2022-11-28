@@ -33,5 +33,5 @@ My two examples of this: https://github.com/Nghiait123456/HighPerformancePayment
 The rule here is: Golang is a non-DI language and most of go's packets don't use DI. Not that it's natural, the code of those packets is very clean and reusable. So I assert, if you use 100% DI in project, your go code will be quite complicated and over enginnering. Some key principles: <br>
 
 1) Automated DI only with packets or common code with lots of params and reuse, high custom params. </br>
-2) Do not DI automatically with packets that do not need to pass param, or the param is difficult to change. Take a look at the open sourcer golang packets. Do manual DI like them, it's simple and effective with go. </br>
-3) Practice fluently 1,2, only do 1 when you really need 1 to solve the problem, don't abuse 1. </br>
+2) Do not DI automatically with packets that do not need to pass param, or the param is difficult to change. Take a look at the open source of golang's packets. Do manual DI like them, it's simple and effective with go. </br>
+3) Practice fluently 1,2, only use 1 when you really need 1 to solve the problem, don't abuse 1. </br>
