@@ -1,6 +1,9 @@
 - [Don't communicate by sharing memory, share memory by communicating](#DontCommunicateBySharingMemory_ShareMemoryByCommunicating)
 - [Concurrency is not parallelism](#ConcurrencysIsNotParallelism)
 - [The bigger the interface, the weaker the abstraction](#TheBiggerThenIterfaceTheWeakerTheAbstraction)
+- [Make the zero value useful](#MakeTheZeroValueUseful)
+- [Interface{} says nothing](#interfaceSaysNothing)
+- [A little copying is better than a little dependency](#ALittleCopyingIsBetterThanALittleDependency)
 
 
 ## Don't communicate by sharing memory, share memory by communicating <a name="DontCommunicateBySharingMemory_ShareMemoryByCommunicating"></a>
@@ -131,5 +134,145 @@ Error() string
 I can implement many of my own error classes and completely map with the original error class used in go. I just need to
 implement the interface Error() string. Since this Interface is small, it will be highly abstract. </br>
 
-link tham khao
-https://gregosuri.com/2015/12/04/go-proverbs-illustrated/
+## Make the zero value useful <a name="MakeTheZeroValueUseful"></a>
+
+In go, default values should be left to make used. The user will use the packet as soon as a new instace is available
+without calling an init() function. To achieve this, the zero value default must be fully utilized. Most of golang's
+standard packages adhere to this principle. </br>
+
+View mutex packet:
+
+```
+package main
+
+import "sync"
+
+type MyInt struct {
+        mu sync.Mutex
+        val int
+}
+
+func main() {
+        var i MyInt
+
+        // i.mu is usable without explicit initialisation.
+        i.mu.Lock()
+        i.val++
+        i.mu.Unlock()
+}
+```
+
+View io packet: </br>
+
+```
+package main
+
+import "bytes"
+import "io"
+import "os"
+
+func main() {
+        var b bytes.Buffer
+        b.Write([]byte("Hello world"))
+        io.Copy(os.Stdout, &b)
+}
+```
+
+View silce packet: </br>
+
+```
+package main
+
+import "fmt"
+import "strings"
+
+func main() {
+        // s := make([]string, 0)
+        // s := []string{}
+        var s []string
+
+        s = append(s, "Hello")
+        s = append(s, "world")
+        fmt.Println(strings.Join(s, " "))
+}
+```
+
+Default zero values are fully used, 3rd parties only need to create an instance and use it. You should design code
+that guarantees this feature. However, in some cases, calling an extra Init function is not bad or unusual. A mockle to
+initialize and set up the config of a web service, it is almost indispensable to have an Init() function with all the
+settings. Use it flexibly and only add the Init() function when you can't do without it. </br>
+
+## Interface{} says nothing <a name="interfaceSaysNothing"></a>
+
+Yes, interface{} says nothing. It can be nothing or it can be anything. So, is it good or bad and when to use it. Use
+interface{} only when your input is really an interface{}, there are multiple types for input and you use those types in
+your work. Use interface{} only when you need it for work. If your function doesn't really need it to run, don't use it,
+overusing it makes the code abstract and a lot of questions: why, what type, what context for type,... Anyone Code
+readers (including writers) will have to try to answer abstract questions, and in the end the answer is that it is not
+as abstract as interface{}.
+Examples of using interface{}:
+
+```
+// Println formats using the default formats for its operands and writes to standard output.
+// Spaces are always added between operands and a newline is appended.
+// It returns the number of bytes written and any write error encountered.
+func Println(a ...any) (n int, err error) {
+return Fprintln(os.Stdout, a...)
+}
+
+// Sprintln formats using the default formats for its operands and returns the resulting string.
+// Spaces are always added between operands and a newline is appended.
+func Sprintln(a ...any) string {
+p := newPrinter()
+p.doPrintln(a)
+s := string(p.buf)
+p.free()
+return
+}
+
+```
+
+When you print something, it can have any type, if you maintain all functions with all types, it's a waste because the
+end goal is to print it. Use any ( interface{}) and handle all the type logic inside. </br>
+
+## A little copying is better than a little dependency <a name="ALittleCopyingIsBetterThanALittleDependency"></a>
+One Proverbs is the most debated, because at first glance it seems to contradict another very famous proverb: "Don't
+repeat yourself". So are they really contradictory and why does Rob Pike make this point? </br>
+
+First, they are not contradictory, they support each other. In most cases, you should "Don't repeat yourself". Let's DI
+the small pieces and make the big puzzle, the big puzzle is a synthesis, the machine completes and runs elegantly. But,
+should you apply it 100% and always DI everything when you need it. The answer is no, there is a lot of pain when you DI
+100% of what you need. With features that can be replaced with a single line of code and low code reusability and
+maintainability, don't import an entire library to run that feature. If really the need for customine and maintain the
+code is not high, copy the code and use it. It avoids the bloat of DI code, avoids errors from a large library while the
+function you use is very small and it does not fail. Again, the boundaries of this are very thin, if you abuse either of
+these two quotes, that is not good. </br>
+
+A simple example:
+
+```
+package main
+
+import (
+"fmt"
+"os"
+)
+
+func main() {
+f, _ := os.Open("/dev/urandom")
+b := make([]byte, 16)
+f.Read(b)
+f.Close()
+uuid := fmt.Sprintf("%x-%x-%x-%x-%x", b[0:4], b[4:6], b[6:8], b[8:10 ], b[10:])
+fmt.Println(uuid)
+}
+```
+
+If here you simply need a UUID, copy the code and don't use a library. However, if you don't understand the cases and
+exceptions about the code you copy, please use the library, don't copy the code. After all, they're all code, if it's
+stable and you know enough about it, use it, if not, use the library. Stability should be a top priority factor in this
+case. </br>
+
+
+link tham khảo:
+https://lingchao.xin/post/go-proverbs.html
