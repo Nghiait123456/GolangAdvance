@@ -4,6 +4,14 @@
 - [Make the zero value useful](#MakeTheZeroValueUseful)
 - [Interface{} says nothing](#interfaceSaysNothing)
 - [A little copying is better than a little dependency](#ALittleCopyingIsBetterThanALittleDependency)
+- [Syscall must always be guarded with build tags](#SyscallMustAlwaysBeGuardedWithBuildTags)
+- [Cgo enables the creation of Go packages that call C code](#CgoEnablesTheCreationOfGoPackagesThatCallCCode)
+- [Cgo is not Go](#CgoIsNotGo)
+- [With the unsafe package there are no guarantee](#WithTheUnsafePackageThereAreNoGuarantees)
+- [Clear is better than clever](#ClearIsBetterThanClever)
+- [Reflection is never clear](#ReflectionIsNeverClear)
+- [Errors are values](#ErrorsAreValues)
+- [Don't just check errors, handle them gracefully](#DontJustCheckErrorsHandleThemGracefully)
 
 
 ## Don't communicate by sharing memory, share memory by communicating <a name="DontCommunicateBySharingMemory_ShareMemoryByCommunicating"></a>
@@ -236,6 +244,7 @@ When you print something, it can have any type, if you maintain all functions wi
 end goal is to print it. Use any ( interface{}) and handle all the type logic inside. </br>
 
 ## A little copying is better than a little dependency <a name="ALittleCopyingIsBetterThanALittleDependency"></a>
+
 One Proverbs is the most debated, because at first glance it seems to contradict another very famous proverb: "Don't
 repeat yourself". So are they really contradictory and why does Rob Pike make this point? </br>
 
@@ -273,6 +282,69 @@ exceptions about the code you copy, please use the library, don't copy the code.
 stable and you know enough about it, use it, if not, use the library. Stability should be a top priority factor in this
 case. </br>
 
+## Syscall must always be guarded with build tags <a name="SyscallMustAlwaysBeGuardedWithBuildTags"></a>
 
-link tham khảo:
-https://lingchao.xin/post/go-proverbs.html
+Different systems (*UNIX, Windows,...) calling the same function (implementations are not the same) may need to be built
+on different systems to get the results you want. Simply put, this is because system calls are specific to each
+OS. </br>
+
+More intuitively, each system call function list must be constructed separately for the os families: Unix, windows,
+solaris,... Go must build separate files for each OS. You need to see the corresponding configurations and settings on
+different environments, there is no way for a system function to be sure to run on every os. </br>
+
+## Cgo enables the creation of Go packages that call C code <a name="CgoEnablesTheCreationOfGoPackagesThatCallCCode"></a>
+
+Similar to the problem above, when calling c, It's very non-portable. It needs to be built for specific architectures
+and operating systems. </br>
+
+## Cgo is not Go <a name="CgoIsNotGo"></a>
+
+Cgo enables the creation of Go packages that call C code. </br>
+
+A lot of people in the early days would write about how a favorite feature of Go was how easily it connected to C, but
+lots of times it shouldn't be necessary, it takes you out of the Go universe and you lose the benefits of Go if you are
+coding in C. </br>
+
+Link detail: https://dave.cheney.net/2016/01/18/cgo-is-not-go </br>
+
+## With the unsafe package there are no guarantees <a name="WithTheUnsafePackageThereAreNoGuarantees"></a>
+
+This is obvious, the package is not something divine, it is the code. If you use an unsafe package, maybe some features
+are wrong or unstable, or one fine day your project will be down. Package are like weapons, choosing the right one and
+using it right depends on the you. </br>
+
+## Clear is better than clever <a name="ClearIsBetterThanClever"></a>
+
+There are languages that value intelligence, it is often a combination of many utilities in one function with many
+features. With foundational things like languages, the smarter is the complexity, and it matters if that code underlies
+everything else. Go, like most programming languages, values clarity over clever. </br>
+
+## Reflection is never clear <a name="ReflectionIsNeverClear"></a>
+
+Common Stackoverflow question of people wanting to use reflect and complaining that it doesn’t work. It doesn’t work,
+because it is not for you. Very, very few people should be playing with this. Powerful, yet very difficult to use. We
+should encourage beginners to step away from using reflection and use the language proper. </br>
+
+In most jobs, you don't need Reflection. Don't worry too much about it, only use it when absolutely necessary. </br>
+
+## Errors are values <a name="ErrorsAreValues"></a>
+
+Too often people write “err != nil” — they think about substituting try/catch. In the golang world, errors are just
+values, you will either treat it as a variable, send errors back, handle the error or ignore it, it's entirely up to
+you. Program with errros and do anything with it, it's just value. High level languages make use of try catch and
+exceptions, but it's a convenient abstraction, you can't easily program with it like a variable. </br>
+
+## Don't just check errors, handle them gracefully <a name="DontJustCheckErrorsHandleThemGracefully"></a>
+
+People are too quick to just return an error up the tree, instead of designing how it should work. A big part of writing
+good Go code is getting the error handling right up front. Of any program really, but its easier to program with errors
+as just values, and easier to do it gracefully. </br>
+
+You handle errors logically and gracefully, instead of just return and break, your program will be higher quality and
+cleaner. </br>
+
+A quality post on how to handle errors in
+go: https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully </br>
+
+
+todo: doc link ve xu ly loi, hieu no roi lam tiep
