@@ -1,5 +1,7 @@
 - [Don't communicate by sharing memory, share memory by communicating](#DontCommunicateBySharingMemory_ShareMemoryByCommunicating)
 - [Concurrency is not parallelism](#ConcurrencysIsNotParallelism)
+- [Channels orchestrate; mutexes serialize](#ChannelsOrchestrateMutexesSerialize)
+- [Concurrency is not parallelism](#ConcurrencysIsNotParallelism)
 - [The bigger the interface, the weaker the abstraction](#TheBiggerThenIterfaceTheWeakerTheAbstraction)
 - [Make the zero value useful](#MakeTheZeroValueUseful)
 - [Interface{} says nothing](#interfaceSaysNothing)
@@ -12,7 +14,9 @@
 - [Reflection is never clear](#ReflectionIsNeverClear)
 - [Errors are values](#ErrorsAreValues)
 - [Don't just check errors, handle them gracefully](#DontJustCheckErrorsHandleThemGracefully)
-
+- [Design the architecture, name the components, document the details](#DesignTheArchitectureNameTheComponentsDocumentTheDetails)
+- [Documentation is for users](#DocumentationsIsForUsers)
+- [Don't panic](#DontPanic)
 
 ## Don't communicate by sharing memory, share memory by communicating <a name="DontCommunicateBySharingMemory_ShareMemoryByCommunicating"></a>
 
@@ -40,7 +44,7 @@ Please view my
 doc: https://github.com/Nghiait123456/GolangAdvance/tree/master/ConcurrencyPattern#DistinctiveConcurrencyAndParallelism
 ? </br>
 
-## Channels orchestrate; mutexes serialize. <a name="ChannelsOrchestrateMutexesSerialize."></a>
+## Channels orchestrate; mutexes serialize <a name="ChannelsOrchestrateMutexesSerialize"></a>
 
 Before understanding this part, you should see the documentation I
 wrote: https://github.com/Nghiait123456/GolangAdvance/tree/master/ConcurrencyPattern. When you understand and use this
@@ -61,7 +65,7 @@ communicate, using a channel just to send a signal that increments a counter by 
 Everything will still work but it's not happy. There will be countless why questions from your team, which only you can
 answer, no one else. </br>
 
-## The bigger the interface, the weaker the abstraction <a name="TheBiggerThenIterfaceTheWeakerTheAbstraction."></a>
+## The bigger the interface, the weaker the abstraction <a name="TheBiggerThenIterfaceTheWeakerTheAbstraction"></a>
 
 In go, interface is commonly used, it is an important part of assembly and communication between parts of go code and it
 tends to be small. An interface is large and aggregates many parts, many things, it will be less likely to be extended
@@ -342,9 +346,30 @@ as just values, and easier to do it gracefully. </br>
 
 You handle errors logically and gracefully, instead of just return and break, your program will be higher quality and
 cleaner. </br>
+I have a quality post on how to handle errors in :
 
-A quality post on how to handle errors in
-go: https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully </br>
+## Design the architecture, name the components, document the details <a name="DesignTheArchitectureNameTheComponentsDocumentTheeDtails"></a>
 
+When you write a large system, you design it as something structured. Imagine every part of the components working in
+tandem, and give the different elements good names because those names will appear on the page. </br>
 
-todo: doc link ve xu ly loi, hieu no roi lam tiep
+More broadly, this is true not only for golang but for most IT related work, for any large project. You should always
+approach in the direction of top down, overview -> details ->.... -> details -> overview->.... More specifically, it
+must include from system design then to specific details gradually. To design a good system design, you need to have
+good detail knowledge. You see, there is a chicken and an egg that always coexist. To break it, do both at the same time
+and gradually increase the difficulty. I have an in-depth document on how to quickly and deeply learn all the knowledge
+in the IT industry, I will update the link when it is public. </br>
+
+## Documentation is for users <a name="DocumentationsIsForUsers"></a>
+
+When writing documentation, think of yourself as a user, not as a developer, then the documentation will be more useful.
+Don't be afraid to explain, clarify, provide additional information as well as best practice. It will be the points that
+make users trust and satisfied. Remember, even if your users are devs, and everything is open source, there will always
+be some distance between author and user. Software engineering has evolved and gone through too many layers, write the
+doc for the user, not the author. </br>
+
+## Don't panic <a name="DontPanic"></a>
+
+Don't use panic for normal error handling. Use error and multiple return values. Serious errors need to end the process,
+use panic. </br>
+

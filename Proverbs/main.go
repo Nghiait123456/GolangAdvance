@@ -1,12 +1,41 @@
-// see: https://groups.google.com/d/msg/golang-nuts/d0nF_k4dSx4/rPGgfXv6QCoJ
 package main
 
 import (
 	"fmt"
-	"syscall"
+
+	errorsN "github.com/pkg/errors"
 )
 
+func fxxxx() error {
+	e1 := errorsN.New("error")
+	e2 := errorsN.Wrap(e1, "inner")
+	e3 := errorsN.Wrap(e2, "middle")
+	e4 := errorsN.Wrap(e3, "high")
+	return errorsN.Wrap(e4, "outer")
+}
+
 func main() {
-	pid, _, _ := syscall.Syscall(syscall.SYS_GETPID, 0, 0, 0)
-	fmt.Println("process id: ", pid)
+	type stackTracer interface {
+		StackTrace() errorsN.StackTrace
+	}
+
+	//errDefault := errors.New("test")
+	errCheck := fxxxx()
+	fmt.Println("errCheck", errCheck)
+	err, ok := errorsN.Cause(errCheck).(stackTracer)
+	if !ok {
+		panic("oops, err does not implement stackTracer")
+	}
+
+	st := err.StackTrace()
+
+	fmt.Printf("%+v \n", st) // top two frames
+	//fmt.Errorf("math: square root of negative number %g", f)
+	// Example output:
+	// github.com/pkg/errors_test.fn
+	//	/home/dfc/src/github.com/pkg/errors/example_test.go:47
+	// github.com/pkg/errors_test.Example_stackTrace
+	//	/home/dfc/src/github.com/pkg/errors/example_test.go:127
+
+	fmt.Println("end")
 }
