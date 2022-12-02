@@ -1,13 +1,15 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 
 	errorsN "github.com/pkg/errors"
 )
 
 func warpError() error {
-	e1 := errorsN.New("error")
+	e0 := errors.New("it error0 ")
+	e1 := errorsN.New("have error: " + e0.Error())
 	e2 := errorsN.Wrap(e1, "inner")
 	e3 := errorsN.Wrap(e2, "middle")
 	e4 := errorsN.Wrap(e3, "high")
@@ -19,7 +21,6 @@ func main() {
 		StackTrace() errorsN.StackTrace
 	}
 
-	//errDefault := errors.New("test")
 	errCheck := warpError()
 	fmt.Println("errCheck = ", errCheck)
 	err, ok := errorsN.Cause(errCheck).(stackTracer)
@@ -37,5 +38,13 @@ func main() {
 	// github.com/pkg/errors_test.Example_stackTrace
 	//	/home/dfc/src/github.com/pkg/errors/example_test.go:127
 
-	fmt.Println("end")
+	fmt.Println("test with error default")
+	errDefault := errors.New("test")
+	errD, ok := errorsN.Cause(errDefault).(stackTracer)
+	if !ok {
+		panic("oops, err does not implement stackTracer")
+	}
+
+	fmt.Println("errD: ", errD)
+
 }
