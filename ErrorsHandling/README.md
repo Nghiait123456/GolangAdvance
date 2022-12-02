@@ -1,7 +1,3 @@
-https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully
-https://go.dev/blog/error-handling-and-go
-https://earthly.dev/blog/golang-errors/
-
 - [Preview](#Preview)
 - [Base error](#BaseError)
 - [Sentinel errors](#SentinelErrors)
@@ -9,7 +5,7 @@ https://earthly.dev/blog/golang-errors/
 - [Wrapping errors default](#WrappingErrorsDefault)
 - [Package smart warp errors](#PackageSmartWarpErrors)
 - [A few additional notes when handling errors](#AFewAdditionalNotesWhenHandlingErrors)
-
+- [Refer](#Refer)
 ## Preview <a name="Preview"></a>
 
 A famous quote in the programming world: "Don't just check errors, handle them gracefully". I have a description of it
@@ -158,3 +154,9 @@ be elegant and logical. </br>
 +) UUID can be a tool worth considering to help clear errors. A UUID that crosses the context and is logged with states
 is a good choice for tracing and debugging complex error cases. I often use this method in projects. I will have an
 elegant error code returned to the client. It's like a black box, only me and my team know and debug it deeply. </br>
+
+
+## Refer <a name="Refer"></a>
+  https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully </br>
+  https://go.dev/blog/error-handling-and-go </br>
+  https://earthly.dev/blog/golang-errors/ </br>

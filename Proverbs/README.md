@@ -346,7 +346,7 @@ as just values, and easier to do it gracefully. </br>
 
 You handle errors logically and gracefully, instead of just return and break, your program will be higher quality and
 cleaner. </br>
-I have a quality post on how to handle errors in :
+I have a quality post on how to handle errors in : https://github.com/Nghiait123456/GolangAdvance/blob/master/ErrorsHandling/README.md </br>
 
 ## Design the architecture, name the components, document the details <a name="DesignTheArchitectureNameTheComponentsDocumentTheeDtails"></a>
 
