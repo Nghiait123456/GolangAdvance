@@ -6,7 +6,7 @@ import (
 	errorsN "github.com/pkg/errors"
 )
 
-func fxxxx() error {
+func warpError() error {
 	e1 := errorsN.New("error")
 	e2 := errorsN.Wrap(e1, "inner")
 	e3 := errorsN.Wrap(e2, "middle")
@@ -20,15 +20,15 @@ func main() {
 	}
 
 	//errDefault := errors.New("test")
-	errCheck := fxxxx()
-	fmt.Println("errCheck", errCheck)
+	errCheck := warpError()
+	fmt.Println("errCheck = ", errCheck)
 	err, ok := errorsN.Cause(errCheck).(stackTracer)
 	if !ok {
 		panic("oops, err does not implement stackTracer")
 	}
 
 	st := err.StackTrace()
-
+	fmt.Println("start stack trade")
 	fmt.Printf("%+v \n", st) // top two frames
 	//fmt.Errorf("math: square root of negative number %g", f)
 	// Example output:
