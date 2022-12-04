@@ -3,6 +3,7 @@
 - [DomainDrivenDesign](#DomainDrivenDesign)
 - [Proverbs](#Proverbs)
 - [DI](#DI)
+- [ErrorsHandling](ErrorsHandling)
 - [Guidelines](#Guidelines)
 - [Style](#Style)
 
@@ -28,6 +29,10 @@ Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/Proverbs
 ## DI <a name="DI"></a>
 
 Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/DI </br>
+
+## ErrorsHandling <a name="ErrorsHandling"></a>
+
+Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/ErrorsHandling </br>
 
 ## Guidelines <a name="Guidelines"></a>
 

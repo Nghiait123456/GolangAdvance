@@ -1,0 +1,1 @@
+Lightweight layout for code in go, todo dissecting it and best practices
