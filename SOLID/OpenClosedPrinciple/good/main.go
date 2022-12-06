@@ -1,6 +1,7 @@
 package bad
 
 type Payment struct {
+	partnerCode   string
 	paymentMethod string
 	paymentNow    PaymentNowInterface
 }
@@ -11,6 +12,27 @@ type PaymentInterface interface {
 
 func (p *Payment) PaymentNow() bool {
 	return p.paymentNow.PayNow()
+}
+
+func NewPayment(partnerCode string) PaymentInterface {
+	switch partnerCode {
+	case "EX_1":
+		{
+			return &Payment{
+				partnerCode: partnerCode,
+			}
+		}
+	case "EX_2":
+		{
+			return &Payment{
+				partnerCode: partnerCode,
+			}
+		}
+
+	default:
+		panic("partnerCode not valid")
+	}
+
 }
 
 /////////////////////////////////////////////////////////////////////////////
