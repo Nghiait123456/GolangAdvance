@@ -6,6 +6,7 @@ https://web.archive.org/web/20150906155800/http://www.objectmentor.com/resources
 - [Preview](#Preview)
 - [Single Responsibility Principle](#SingleResponsibilityPrinciple)
 - [Open/Closed Principle](#OpenClosedPrinciple)
+- [Liskov Substitution Principle](#LiskovSubstitutionPrinciple)
 
 ## Preview <a name="Preview"></a>
 
@@ -132,8 +133,8 @@ type PaymentNowInterface interface {
 }
 ```
 
-All the new modules for PayNow simply maintain the PaymentNowInterface interface without worrying about the Payment
-struct. </br>
+All the new modules for PayNow simply implements the PaymentNowInterface interface without worrying about the Payment
+struct. In golang, this is done easily and simply through interfaces and embedding code.  </br>
 
 Finally, I need a place to aggregate the materials for my factory, this place needs to be independent because the
 purpose it was born with is to be independent of Payment Struct from providers. </br>
@@ -163,3 +164,9 @@ func NewPayment(partnerCode string) PaymentInterface {
 
 Good practice of this principle requires a deep understanding of it and an understanding of the module you are
 coding. </br>
+
+## Liskov Substitution Principle <a name="LiskovSubstitutionPrinciple"></a>
+![LiskovSubstitutionPrinciple.png](img%2FLiskovSubstitutionPrinciple.png) </br>
+
+
+

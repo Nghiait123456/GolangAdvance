@@ -4,7 +4,7 @@ type Payment struct {
 	paymentMethod string
 }
 
-func (p *Payment) PayNow() bool {
+func (p *Payment) GetNow() bool {
 	if p.paymentMethod == "Visa" {
 		p := VisaPayNow{
 			paymentMethod: p.paymentMethod,

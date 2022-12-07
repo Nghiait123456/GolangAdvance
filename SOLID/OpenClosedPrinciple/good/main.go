@@ -11,7 +11,7 @@ type PaymentInterface interface {
 }
 
 func (p *Payment) PaymentNow() bool {
-	return p.paymentNow.PayNow()
+	return p.paymentNow.GetNow()
 }
 
 func NewPayment(partnerCode string) PaymentInterface {
@@ -38,14 +38,14 @@ func NewPayment(partnerCode string) PaymentInterface {
 /////////////////////////////////////////////////////////////////////////////
 
 type PaymentNowInterface interface {
-	PayNow() bool
+	GetNow() bool
 }
 
 type PaypalPayNow struct {
 	paymentMethod string
 }
 
-func (pp *PaypalPayNow) PayNow() bool {
+func (pp *PaypalPayNow) GetNow() bool {
 	// todo action paynow paypal
 	return true
 }
@@ -54,7 +54,7 @@ type VisaPayNow struct {
 	paymentMethod string
 }
 
-func (pp *VisaPayNow) PayNow() bool {
+func (pp *VisaPayNow) GetNow() bool {
 	// todo action paynow paypal
 	return true
 }
@@ -63,7 +63,7 @@ type MasterCardPayNow struct {
 	paymentMethod string
 }
 
-func (pp *MasterCardPayNow) PayNow() bool {
+func (pp *MasterCardPayNow) GetNow() bool {
 	// todo action paynow paypal
 	return true
 }
