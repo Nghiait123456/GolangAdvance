@@ -14,6 +14,7 @@ type AmountCardRisk struct {
 }
 type AmountCardRiskInterface interface {
 	CheckAmountRisk(amount uint64) bool
+	CheckRiskFrPaymentGateway(amount uint64) bool
 }
 
 type CustomerOrderRisk struct {
@@ -26,4 +27,5 @@ type ProductCardRisk struct {
 }
 type ProductCardRiskInterface interface {
 	CheckProductCardRisk(amount uint64) bool
+	CheckRiskFrPaymentGateway(amount uint64) bool
 }

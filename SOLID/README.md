@@ -1,14 +1,10 @@
-todo:
-https://s8sg.medium.com/solid-principle-in-go-e1a624290346
-https://dave.cheney.net/2016/08/20/solid-go-design
-https://web.archive.org/web/20150906155800/http://www.objectmentor.com/resources/articles/Principles_and_Patterns.pdf
-
 - [Preview](#Preview)
 - [Single Responsibility Principle](#SingleResponsibilityPrinciple)
 - [Open/Closed Principle](#OpenClosedPrinciple)
 - [Liskov Substitution Principle](#LiskovSubstitutionPrinciple)
 - [Interface Segregation Principle](#InterfaceSegregationPrinciple)
-
+- [Dependency Inversion Principle](#DependencyInversionPrinciple)
+- [Refer](#Refer)
 ## Preview <a name="Preview"></a>
 
 In 2002 Robert Martin published his book, Agile Software Development, Principles, Patterns, and Practices. In it he
@@ -263,3 +259,45 @@ designed to implement its implementation without doing any complicated processin
 interface. The explicit embedded structure is also used nearly everywhere in other packages that develop and use this
 platform package. </br>
 
+## Interface Segregation Principle <a name="InterfaceSegregationPrinciple"></a>
+
+![InterfaceSegregationPrinciple.png](img%2FInterfaceSegregationPrinciple.png) </br>
+“Many client specific interfaces are better than one general purpose interface” — Robert C. Martin </br>
+
+Simply, if a class provides multiple interfaces to many clients, instead of creating a common interface with many
+methods, create separate interfaces with clients and implement them in a class. </br>
+
+In Golang interfaces are satisfied implicitly, rather than explicitly, which makes it easier to extend a class behavior
+by implementing multiple interface based on needs. It also encourages the design of small and reusable interfaces. </br>
+
+Robert C. Martin in his Design Principles and Design Patterns paper mentioned: As with all principles, care must be
+taken not to overdo it. The specter of a class with hundreds of different interfaces, some segregated by client and
+other segregated by version, would be frightening indeed. </br>
+
+To cut this out, again requires you to understand the domain you are working on. There is a simpler rule to make things
+clear: each interface must be defined in such a way that it provides exactly and complete functionality needed for at
+least one of the clients. </br>
+
+Please view: https://github.com/Nghiait123456/GolangAdvance/blob/master/SOLID/InterfaceSegregationPrinciple/main.go.
+CheckRiskFrPaymentGateway(amount uint64) bool appears at , AmountCardRiskInterface and ProductCardRiskInterface but no
+client uses a native interface with CheckRiskFrPaymentGateway(amount uint64) bool so it is not isolated. </br>
+
+
+## Dependency Inversion Principle <a name="DependencyInversionPrinciple"></a>
+![DependencyInversionPrinciple.png](img%2FDependencyInversionPrinciple.png) </br>
+“Depend upon Abstractions. Do not depend upon concretions” — Robert C. Martin </br>
+Class A depends on class B and use it directly. Class B is a concrete type, which means any changes on class B, will
+directly affect class A. similarly, changes in class A may require claas B to change. If class B is being used by more
+than one classes, it will break other dependencies too. </br>
+
+The dependency inversion principle suggests providing an interface I that provides the methods needed by class A. And
+class B should implement the interface in order to get used by class A. This way one or many implementations of the
+interface I may exist. And class A can be used by other classes with different interfaces </br>
+
+Golang fully meets this principle through interface and embedded struct. More broadly, a best practice for DI golang, I
+have a detailed dissection of it: https://github.com/Nghiait123456/GolangAdvance/tree/master/DI </br>
+
+## Refer <a name="Refer"></a>
+https://web.archive.org/web/20150906155800/http://www.objectmentor.com/resources/articles/Principles_and_Patterns.pdf </br>
+https://s8sg.medium.com/solid-principle-in-go-e1a624290346 </br>
+https://dave.cheney.net/2016/08/20/solid-go-design </br>
