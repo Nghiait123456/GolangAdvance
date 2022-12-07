@@ -166,7 +166,99 @@ Good practice of this principle requires a deep understanding of it and an under
 coding. </br>
 
 ## Liskov Substitution Principle <a name="LiskovSubstitutionPrinciple"></a>
-![LiskovSubstitutionPrinciple.png](img%2FLiskovSubstitutionPrinciple.png) </br>
 
+![LiskovSubstitutionPrinciple_1.png](img%2FLiskovSubstitutionPrinciple_1.png) </br>
+![LiskovSubstitutionPrinciple_2.png](img%2FLiskovSubstitutionPrinciple_2.png) </br>
+“Derived methods should expect no more and provide no less” — Robert C. Martin </br>
 
+In a nutshell, this principle provides a method for defining base and derived classes. More specifically, the derived
+class must be able to completely replace the base class in all cases. </br>
+
+With a pure OOP language this is quite simple, I have to define paternity and implement it. In go, we don't have OOP.
+This principle ensures flexibility by methods: small interface, embedded struct. </br>
+
+In go there are two ways to embed struct, anonymous embedded and explicit embedded. Let's dissect this problem through
+examples. </br>
+
+Please
+view: https://github.com/Nghiait123456/GolangAdvance/blob/master/SOLID/LiskovSubstitutionPrinciple/anonymous_embedded/main.go </br>
+
+I have a Person struct containing the most basic information of a person, Student, Teacher adds information for Person.
+With anonymous embedded, it's easy for me to reuse person code and implement additional Student and Teacher
+features. </br>
+
+```
+type Student struct {
+    Person
+}
+
+type Teacher struct {
+    Person
+}
+```
+
+Here, Student can be considered a derivative of Person and can completely replace Person. </br>
+
+```
+s := Student{
+Person{
+    name: "Student 1",
+},
+}
+i2 := Identification{
+    p: &s,
+}
+i2.p.GetName()
+```
+
+However, this is a code that is not widely used in go. At first glance, it seemed very convenient, but it tried to
+create code inheritance, Student has filled the Person need. Go does not support oop, so if this way of writing is used
+in many places in your project, it is a challenge of code management. A Struct will automatically have the code of many
+other structs, following many OOP rules without go support. Completely normal code in oop becomes quite complex with go.
+In go, the community favors a different way. </br>
+
+Please
+view: https://github.com/Nghiait123456/GolangAdvance/blob/master/SOLID/LiskovSubstitutionPrinciple/explicit_embedded/main.go </br>
+
+As in Go, interfaces are satisfied implicitly, rather than explicitly.
+
+```
+type Student struct {
+    p PersonInterface
+    class string
+    point string
+}
+
+type StudentInterface interface {
+    PersonInterface
+    GetStudentClass() string
+    GetStudentPoint() string
+}
+
+func (t *Student) PrintName() {
+    t.p.PrintName()
+}
+
+func (t *Student) GetStudentClass() string {
+    return t.class
+}
+
+func (t *Student) GetStudentPoint() string {
+    return t.point
+}
+```
+
+Student will implement StudentInterface which already contains PersonInterface. PersonInterface is explicitly embedded,
+while the code is longer than the above, it provides strong independence and clarity, while preserving the original
+principle. Student can be used instead of Person and Student, but not vice versa. This is the clean embedded style and
+small interface widely used in go. </br>
+
+Dave Cheney in his SOLID Go Design blog mentioned: Well designed interfaces are more likely to be small interfaces; the
+prevailing idiom is an interface contains only a single method. It follows logically that small interfaces lead to
+simple implementations, because it is hard to do otherwise. Which leads to packages of simple implementations connected
+by common behaviour. Examining some famous go packages, io.Reader only implements 2 interfaces, Read(p []byte) (n int,
+err error) and Write(p []byte) (n int, err error), error only have interface Error() string, .... These codes are
+designed to implement its implementation without doing any complicated processing other than implementing the same
+interface. The explicit embedded structure is also used nearly everywhere in other packages that develop and use this
+platform package. </br>
 
