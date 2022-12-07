@@ -7,6 +7,7 @@ https://web.archive.org/web/20150906155800/http://www.objectmentor.com/resources
 - [Single Responsibility Principle](#SingleResponsibilityPrinciple)
 - [Open/Closed Principle](#OpenClosedPrinciple)
 - [Liskov Substitution Principle](#LiskovSubstitutionPrinciple)
+- [Interface Segregation Principle](#InterfaceSegregationPrinciple)
 
 ## Preview <a name="Preview"></a>
 
