@@ -15,7 +15,7 @@ func (p *Person) PrintName() {
 }
 
 type Student struct {
-	name  string
+	p     PersonInterface
 	class string
 	point string
 }
@@ -27,7 +27,7 @@ type StudentInterface interface {
 }
 
 func (t *Student) PrintName() {
-	fmt.Println("name = ", t.name)
+	t.p.PrintName()
 }
 
 func (t *Student) GetStudentClass() string {
@@ -39,13 +39,13 @@ func (t *Student) GetStudentPoint() string {
 }
 
 type Teacher struct {
-	name  string
+	p     PersonInterface
 	class string
 	point string
 }
 
 func (t *Teacher) PrintName() {
-	fmt.Println("name = ", t.name)
+	t.p.PrintName()
 }
 
 func (t *Teacher) GetTeacherClass() string {
@@ -75,14 +75,21 @@ type TeacherIdentification struct {
 }
 
 func main() {
+	p1 := Person{
+		name: "AAA",
+	}
+	p2 := Person{
+		name: "BBB",
+	}
+
 	t := Teacher{
-		name:  "teacher",
+		p:     &p1,
 		point: "A",
 		class: "B",
 	}
 
 	s := Student{
-		name:  "student",
+		p:     &p2,
 		point: "A",
 		class: "B",
 	}

@@ -29,7 +29,7 @@ func boring(msg string) <-chan string { // Returns receive-only channel of strin
 
 /**
   explain:
-	run example and get result:
+	run anonymous_embedded and get result:
 		Joe: 0
 		Ann: 0
 		Joe: 1

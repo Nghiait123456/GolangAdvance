@@ -1,4 +1,4 @@
-// naivemain runs the Subscribe example with the naive Subscribe
+// naivemain runs the Subscribe anonymous_embedded with the naive Subscribe
 // implementation and a fake RSS fetcher.
 //go:build ignore && OMIT
 // +build ignore,OMIT

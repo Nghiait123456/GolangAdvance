@@ -1,7 +1,7 @@
 //go:build ignore && OMIT
 // +build ignore,OMIT
 
-// fakemain runs the Subscribe example with a fake RSS fetcher.
+// fakemain runs the Subscribe anonymous_embedded with a fake RSS fetcher.
 package main
 
 import (
