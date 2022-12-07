@@ -6,7 +6,7 @@
 - [ErrorsHandling](ErrorsHandling)
 - [Guidelines](#Guidelines)
 - [Style](#Style)
-
+- [SOLID](#SOLID)
 
 ## Introduce <a name="Introduce"></a>
 
@@ -41,6 +41,10 @@ Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/Guidelin
 ## Style <a name="Style"></a>
 
 Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/Style </br>
+
+## SOLID <a name="SOLID"></a>
+
+Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/SOLID </br>
 
 
 
