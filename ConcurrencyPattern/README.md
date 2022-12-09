@@ -5,36 +5,36 @@
 - [What is problem concurrency then it's not strong](#whats_is_problem_concurrency_then_it_not_strong)
 - [Pattern](#pattern)
     - [1) Pass chan to function](#1_pass_chan_to_function)
-    - [2) Generator](#2Generator)
-    - [3) Fan in](#3FanIn)
-    - [4) Restore sequence](#4RestoreSequence)
-    - [5) Select timeout](#5SelectTimeout)
-    - [6) Quit signal](#6QuitSignal)
-    - [7) Daisy chan](#7DaisyChan)
-    - [8) Google 1_0](#8Google1_0)
-    - [9) Google 2_0](#9Google2_0)
-    - [10) Google 2_1](#10Google2_1)
-    - [11) Google 3_0](#11Google3_0)
-    - [12) Adv ping pong](#12AdvPingPong)
-    - [13) Adv subscription](#13AdvSubscription)
-    - [14) Context](#14Context)
-    - [15) Ring buffer channel](#15RingBufferChannel)
-    - [16) Ring buffer](#16RingBuffer)
-    - [17) Bug race conditions](#17BugRaceConditions)
-    - [18) Bug sleep in loop](#18BugSleepInLoop)
-    - [19) Bug lock channel forever](#19BugLockChannelForever)
-    - [20) Bug select on nil](#20BugSelectOnNil)
-    - [21) Fix bug race conditions](#21FixBugRaceConditions)
-    - [22) Fix bug lock channel forever](#22FixBugLockChannelForever)
-    - [23) Fix bug sleep in loop](#23FixBugSleepInLoop)
-    - [24) Clear example smart fetch](#24ClearExampleSmartFetch)
-    - [25) Worker pool simple](#25WorkerPoolSimple)
-    - [26) Worker pool advance](#26WorkerPoolAdvance)
-    - [27) Worker pool advance flexible](#27WorkerPoolAdvanceFlexible)
-    - [28) Handle very larger jobs in one instance](#28HandleVeryLargerJobsInOneInstance)
-    - [29) Worker pool advance remote cache](#29WorkerPoolAdvanceRemoteCache)
-    - [30) Best practice use worker pool](#30BestPracticeUseWorkerPool)
-    - [31) Simple http server](#31SimpleHttpServer)
+    - [2) Generator](#2_generator)
+    - [3) Fan in](#3_fan_in)
+    - [4) Restore sequence](#4_restore_sequence)
+    - [5) Select timeout](#5_select_timeout)
+    - [6) Quit signal](#6_quit_signal)
+    - [7) Daisy chan](#7_daisy_chan)
+    - [8) Google 1_0](#8_google1_0)
+    - [9) Google 2_0](#9_google2_0)
+    - [10) Google 2_1](#10_google2_1)
+    - [11) Google 3_0](#11_google3_0)
+    - [12) Adv ping pong](#12_adv_ping_pong)
+    - [13) Adv subscription](#13_adv_subscription)
+    - [14) Context](#14_context)
+    - [15) Ring buffer channel](#15_ring_buffer_channel)
+    - [16) Ring buffer](#16_ring_buffer)
+    - [17) Bug race conditions](#17_bug_race_conditions)
+    - [18) Bug sleep in loop](#18_bug_sleep_in_loop)
+    - [19) Bug lock channel forever](#19_bug_lock_channel_forever)
+    - [20) Bug select on nil](#20_bug_select_on_nil)
+    - [21) Fix bug race conditions](#21_fix_bug_race_conditions)
+    - [22) Fix bug lock channel forever](#22_fix_bug_lock_channel_forever)
+    - [23) Fix bug sleep in loop](#23_fix_bug_sleep_in_loop)
+    - [24) Clear example smart fetch](#24_clear_example_smart_fetch)
+    - [25) Worker pool simple](#25_worker_pool_simple)
+    - [26) Worker pool advance](#26_worker_pool_advance)
+    - [27) Worker pool advance flexible](#27_worker_pool_advance_flexible)
+    - [28) Handle very larger jobs in one instance](#28_handle_very_larger_jobs_in_one_instance)
+    - [29) Worker pool advance remote cache](#29_worker_pool_advance_remote_cache)
+    - [30) Best practice use worker pool](#30_best_practice_use_worker_pool)
+    - [31) Simple http server](#31_simple_http_server)
 
 ## Introduce <a name="introduce"></a>
 
@@ -113,7 +113,7 @@ Channel is tool sync data from many concurrency. It is strong, popular and flexi
 it in the routine and read it in main (maybe in another routine). It's so simple that, you don't need to understand how
 it syncs data, golang has built and fully integrated a tool syncs feature in the channel. </br>
 
-## 2) Generator  <a name="2Generator"></a>
+## 2) Generator  <a name="2_generator"></a>
 
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/2_generator/main.go </br>
 
@@ -121,7 +121,7 @@ I have 2 function run on 2 routine, every functions pass data in to one channel.
 data of all those channels. A very simple pattern and has quite a few weaknesses. This weakness will be analyzed in the
 samples below. </br>
 
-## 3) Fan in  <a name="3FanIn"></a>
+## 3) Fan in  <a name="3_fan_in"></a>
 
 ![](img/fan-in.png) </br>
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/3_fan_in/main.go </br>
@@ -134,7 +134,7 @@ about a single endpoint channel to get the data. The performance bottleneck is a
 it usually only appears in some very deep performance problems in the OS kernel. </br>
 A simple, powerful and commonly used pattern. </br>
 
-## 4) Restore sequence  <a name="4RestoreSequence"></a>
+## 4) Restore sequence  <a name="4_restore_sequence"></a>
 
 ![](img/4_restore_sequence.png) </br>
 
@@ -153,7 +153,7 @@ In golang, synchronous and asynchronous handling becomes simple with channels. I
 concurrency build in that language, using an external packet, this is often more complicated and not very
 performant. </br>
 
-## 5) Select timeout  <a name="5SelectTimeout"></a>
+## 5) Select timeout  <a name="5_select_timeout"></a>
 
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/5_select_timeout/main.go </br>
 
@@ -183,14 +183,14 @@ for {
 I use structure 1 for looping, and structure 2 for signal processing (with data, timeout). Everything works fine until
 the event timeout is caught. I insert my timeout handler and it's over. </br>
 
-## 6) Quit signal <a name="6QuitSignal"></a>
+## 6) Quit signal <a name="6_quit_signal"></a>
 
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/6_quit_signal/main.go </br>
 
 Quite similar to the idea of pattern 5, I want to quit my job when I want. I implement a quit channel, catch the signal
 and process on it. </br>
 
-## 7) Daisy chan <a name="7DaisyChan"></a>
+## 7) Daisy chan <a name="7_saisy_chan"></a>
 
 ![](img/7_daisy_chan.png) </br>
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/7_daisy_chan/main.go
@@ -207,21 +207,21 @@ code and you'll see I've printed this in detail. </br>
 In Rob Pike's original example, there is another pretty easy explanation, you can refer
 to: https://stackoverflow.com/questions/26135616/understand-the-code-go-concurrency-pattern-daisy-chain </br>
 
-## 8) Google 1_0 <a name="8Google1_0"></a>
+## 8) Google 1_0 <a name="8_google1_0"></a>
 
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/8_google1_0/main.go </br>
 
 I query 3 service and merge result. This is a common job in microservices. All are conducted sequentially and the time
 to complete the entire job is equal to the total time to complete all the subtasks.
 
-## 9) Google 2_0 <a name="9Google2_0"></a>
+## 9) Google 2_0 <a name="9_google2_0"></a>
 
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/9_google2_0/main.go </br>
 
 Similar to pattern 8 but here, with a little runtime improvement. Job query search all run concurrency. The result is
 merged into 1 channel. The running time is approximately 1/3 of pattern 8. </br>
 
-## 10) Google 2_1 <a name="10Google2_1"></a>
+## 10) Google 2_1 <a name="10_google2_1"></a>
 
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/10_google2_1/main.go </br>
 
@@ -242,7 +242,7 @@ for i := 0; i < 3; i++ {
 
 Everything works until there is a timeout and the process ends. <br>
 
-## 11) Google 3_0 <a name="11Google3_0"></a>
+## 11) Google 3_0 <a name="11_google3_0"></a>
 
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/11_google3_0/main.go </br>
 
@@ -265,7 +265,7 @@ func First(query string, replicas ...Search) Result {
 
 Here, there are many routines that push data to channel c, the first data will be recorded as the earliest. </br>
 
-## 12) Adv ping pong <a name="12AdvPingPong"></a>
+## 12) Adv ping pong <a name="12_adv_ping_pong"></a>
 
 ![](img/12_adv_ping_pong.png) </br>
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/12_adv_pingpong/main.go </br>
@@ -277,7 +277,7 @@ also waits and relaxes). That loop will repeat until the referee stops the game.
 
 The idea here is: use a single channel and the blocked mechanism of the channel is to sync 2 routines. </br>
 
-## 13) Adv subscription <a name="13AdvSubscription"></a>
+## 13) Adv subscription <a name="13_adv_subscription"></a>
 
 Example
 in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/13_adv_subscription/main.go </br>
@@ -304,7 +304,7 @@ merged := Merge(
 Fetch() does the sole job of fetching data, Subcribe() creates a loop, controls the loop one stream fetch and merge
 data, quit stream. Merger() controls Subcribes, controls all Subcribes() for different loop streams. </br>
 
-## 14) Context  <a name="14Context"></a>
+## 14) Context  <a name="14_context"></a>
 
 ![](img/14_context.png) </br>
 
@@ -324,7 +324,7 @@ the patterns I showed before, however, it has some dark superior in syncs perfor
 same, it has been quite clearly outlined in the previous patterns. In this section, I will not dissect it in detail, it
 is presented in another document. </br>
 
-## 15) Ring buffer channel  <a name="15RingBufferChannel"></a>
+## 15) Ring buffer channel  <a name="15_ring_buffer_channel"></a>
 
 ![](img/15_ring_bufer_channel.png) </br>
 Example in: https://github.com/Nghiait123456/GolangAdvance/tree/master/ConcurrencyPattern/15_ring_buffer_channel </br>
@@ -345,7 +345,7 @@ to have no limit. </br>
 
 Both of these patterns are implemented in the example link. </br>
 
-## 16) Ring buffer <a name="16RingBuffer"></a>
+## 16) Ring buffer <a name="16_ring_buffer"></a>
 
 ![](img/16_ring_buffer.png) </br>
 Example in: https://github.com/Nghiait123456/GolangAdvance/tree/master/ConcurrencyPattern/15_ring_buffer_channel </br>
@@ -365,7 +365,7 @@ low level compliant. Specifically, it needs to comply: https://en.wikipedia.org/
 On my laptop, my package can handle 30 M read and write commands per second with 2000 routines. It is about 8 times
 faster than channels in the same environment. </br>
 
-## 17) Bug race conditions <a name="17BugRaceConditions"></a>
+## 17) Bug race conditions <a name="17_bug_race_conditions"></a>
 
 ![](img/17_race_conditions.png) </br>
 Example
@@ -383,7 +383,7 @@ A simple programming rule to remember to minimize bug race conditions. With shar
 can be any mechanism but always syncs the data. In golang there are: muxtex, channel, atomic, ring buffer, ... The most
 popular and used is chan. </br>
 
-## 18) Bug sleep in loop <a name="18BugSleepInLoop"></a>
+## 18) Bug sleep in loop <a name="18_bug_sleep_in_loop"></a>
 
 Example
 in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/18_bug_sleep_in_loop/main.go </br>
@@ -417,7 +417,7 @@ Have two times use time.Sleep() in one in loop. This code uses time.Sleep() for 
 sleep, the system will lose realtime, all even during time.Sleep() will not be caught. Use Sleep() only when you are
 sure there are no events to catch during sleep. Otherwise, the system is not trusted enough, you may lose data </br>
 
-## 19) Bug lock channel forever <a name="19BugLockChannelForever"></a>
+## 19) Bug lock channel forever <a name="19_bug_lock_channel_forever"></a>
 
 Example
 in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/19_bug_block_channel_forever/main.go  </br>
@@ -451,7 +451,7 @@ Print "s.updates <- item // HLsend", if there is no read <-s.updates anywhere, t
 until there is room to read it. This can be used as a mechanism to lock and wait for the routine, or if it's
 unintentional, it's an error. </br>
 
-## 20) Bug select on nil <a name="20BugSelectOnNil"></a>
+## 20) Bug select on nil <a name="20_bug_select_on_nil"></a>
 
 Example
 in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/20_bug_channel_selecter_on_nil/main.go  </br>
@@ -486,7 +486,7 @@ for {
 
 A channel is set to nil, reading and writing on it will be blocked </br>
 
-## 21) Fix bug race conditions <a name="21FixBugRaceConditions"></a>
+## 21) Fix bug race conditions <a name="21_fix_bug_race_conditions"></a>
 
 Example
 in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/20_bug_channel_selecter_on_nil/main.go  </br>
@@ -500,7 +500,7 @@ in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPatter
 
 The idea is to use some kind of synchronization mechanism. Here, I use the most common way of using chan. </br>
 
-## 22) Fix bug lock channel forever <a name="22FixBugLockChannelForever"></a>
+## 22) Fix bug lock channel forever <a name="22_fix_bug_lock_channel_forever"></a>
 
 Example
 in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/22_fix_bug_block_channel_forever/main.go </br>
@@ -534,7 +534,7 @@ In this pattern, Google has created a pending buffer, when len(pending) > 0, ena
 // enable send case", data will be sequentially pushed to the s.updates channel through an intermediary. first.
 Personally, this pattern is a bit complicated to use, I will suggest a simpler pattern to replace it below. </br>
 
-## 23) Fix bug sleep in loop <a name="23FixBugSleepInLoop"></a>
+## 23) Fix bug sleep in loop <a name="23_fix_bug_sleep_in_loop"></a>
 
 Example
 in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/22_fix_bug_block_channel_forever/main.go </br>
@@ -561,7 +561,7 @@ in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPatter
 Still the familiar structure of golang, I use timer.After(), the essence of this is that it waits until the chanel has
 data </br>
 
-## 24) Clear example smart fetch <a name="24ClearExampleSmartFetch"></a>
+## 24) Clear example smart fetch <a name="24_clear_example_smart_fetch"></a>
 
 Example
 in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/22_fix_bug_block_channel_forever/main.go </br>
@@ -571,7 +571,7 @@ data chan and select, patterns already. Everything works smoothly and describes 
 Up to this point, you can implement any concurrecny tool for just about anything using the concurrency knowledge
 acquired in this document </br>
 
-## 25) Worker pool simple <a name="25WorkerPoolSimple"></a>
+## 25) Worker pool simple <a name="25_worker_pool_simple"></a>
 
 ![](img/25_worker_pool_simple.png) </br>
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/25_worker_pool_simple/main.go
@@ -579,7 +579,7 @@ Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/Concurren
 The simplest version of the worker pool. I create a group of workers base on routine, one filled with jobs. Jobs are
 pushed in via chan and workers auto handle it </br>
 
-## 26) Worker pool advance <a name="26WorkerPoolAdvance"></a>
+## 26) Worker pool advance <a name="26_worker_pool_advance"></a>
 
 Example
 in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/26_worker_pool_advance/main.go </br>
@@ -587,13 +587,13 @@ in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPatter
 A more advanced and convenient version of worker pool will include features: automatic worker creation, control timeout,
 automatic cleary memory chan when worker is down, easy to use... The code in the above link is an example of it. </br>
 
-## 27) Worker pool advance flexible <a name="27WorkerPoolAdvanceFlexible"></a>
+## 27) Worker pool advance flexible <a name="27_worker_pool_advance_flexible"></a>
 
 A little more advanced, I have a bunch of jobs running and when they're completely done, I move on. I need workerpool to
 give me more options. Again, these options are all theoretically based on the previous sections. These features are also
 covered in the previous section. </br>
 
-## 28) Handle very larger jobs in one instance <a name="28HandleVeryLargerJobsInOneInstance"></a>
+## 28) Handle very larger jobs in one instance <a name="28_handle_very_larger_jobs_in_one_instance"></a>
 
 ![](img/29_high_performance_worker_pool.png) </br>
 There are very good investment and processing libraries in terms of performance, which can handle tens of millions of
@@ -601,7 +601,7 @@ jobs with 50 KB of ram and less than a minute of time. For example: https://gith
 high performing library on workerpool base on goroutine. If you have a job that requires high-performance processing,
 use it, which saves costs and reduces rework of the wheel. </br>
 
-## 29) Worker pool advance remote cache <a name="29WorkerPoolAdvanceRemoteCache"></a>
+## 29) Worker pool advance remote cache <a name="29_worker_pool_advance_remote_cache"></a>
 
 ![](img/28_worker_pool_remote_cache.png) </br>
 Example
@@ -612,7 +612,7 @@ worker. One meridian model is to use remote cache. Jobs from many places will pu
 anywhere will get jobs from cache and process it. This model can scaleout almost endlessly, it can handle extremely
 large number of jobs. </br>
 
-## 30) Best practice use worker pool <a name="30BestPracticeUseWorkerPool"></a>
+## 30) Best practice use worker pool <a name="30_best_practice_use_worker_pool"></a>
 
 The more common question: when to use worker pool packets, when to write your own worker job. For me, when there is a
 job with not high logical complexity, not closely related to the order or timing of jobs, does not require data
@@ -620,7 +620,7 @@ aggregation of many jobs, needs to run in the background to reduce response time
 packet workerpoll to reduce code development time. Concurrency cases have strict logic and multiple merger data logic, I
 develop concurrency tool just for that job. </br>
 
-## 31) Simple http server  <a name="31SimpleHttpServer"></a>
+## 31) Simple http server  <a name="31_simple_http_server"></a>
 
 ![](img/31_http_server.png) </br>
 Another very popular concurrency model is http server. I have a generic network listener for stream-oriented protocols.
