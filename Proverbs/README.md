@@ -1,4 +1,4 @@
-- [Don't communicate by sharing memory, share memory by communicating](#dont_communicate_by_sharingM_memory_share_memory_by_communicating)
+- [Don't communicate by sharing memory, share memory by communicating](#dont_communicate_by_sharing_memory_share_memory_by_communicating)
 - [Concurrency is not parallelism](#concurrencys_is_not_parallelism)
 - [Channels orchestrate; mutexes serialize](#channels_orchestrate_mutexes_serialize)
 - [The bigger the interface, the weaker the abstraction](#the_bigger_then_iterface_the_weaker_the_abstraction)
@@ -17,7 +17,7 @@
 - [Documentation is for users](#documentations_is_for_users)
 - [Don't panic](#dont_panic)
 
-## Don't communicate by sharing memory, share memory by communicating <a name="dont_communicate_by_sharingM_memory_share_memory_by_communicating"></a>
+## Don't communicate by sharing memory, share memory by communicating <a name="dont_communicate_by_sharing_memory_share_memory_by_communicating"></a>
 
 Here are two points to clarify:
 Don't communicate by sharing memory: </br>
