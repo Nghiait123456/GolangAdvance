@@ -1,23 +1,23 @@
-- [Introduce](#Introduce)
-- [Source](#Source)
-- [Directories](#Directories)
-    - [Layout](#Layout)
+- [Introduce](#introduce)
+- [Source](#source)
+- [Directories](#directories)
+    - [Layout](#layout)
     - [Domain](#domain)
-    - [Entity](#Entity)
-    - [Aggregate](#Aggregate)
-    - [Infrastructure](#Infrastructure)
-    - [Repositories](#Repositories)
-    - [User Interface](#UserInterface)
-    - [DTO](#DTO)
-    - [API Interface](#APIInterface)
-    - [WEB Interface](#WEBInterface)
-    - [Packet layer](#PacketLayer)
-    - [Application](#Application)
-    - [Services](#Services)
-    - [Value Object](#ValueObject)
-    - [Modules](#Modules)
+    - [Entity](#entity)
+    - [Aggregate](#aggregate)
+    - [Infrastructure](#infrastructure)
+    - [Repositories](#repositories)
+    - [User Interface](#user_interface)
+    - [DTO](#dto)
+    - [API Interface](#api_interface)
+    - [WEB Interface](#web_interface)
+    - [Packet layer](#packet_layer)
+    - [Application](#application)
+    - [Services](#services)
+    - [Value Object](#value_object)
+    - [Modules](#modules)
 
-## Introduce <a name="Introduce"></a>
+## Introduce <a name="introduce"></a>
 
 In 2003, Eric Evans introduced domain driven design, it quickly resonated and was gradually used for large projects.
 Domain-driven design (DDD) is a major software design approach,focusing on modeling software to match a domain according
@@ -27,13 +27,13 @@ better than the author. In this document, I do not focus on theory, I focus on p
 I built a domain driven design framework with golang, it is flexible, flexible and applicable to all go frameworks. It
 can be used for both monolithic as well as micro service. Hope it helps you, enjoy and relax it. </br>
 
-## Source <a name="Source"></a>
+## Source <a name="source"></a>
 
 This source template is: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService </br>
 
-## Directories <a name="Directories"></a>
+## Directories <a name="directories"></a>
 
-## Layout <a name="Layout"></a>
+## Layout <a name="layout"></a>
 
 ![](img/layout_ddd.png) </br>
 This is the most comprehensive and visual diagram of ddd. However, for newbies, it is not easily accessible. I give the
@@ -60,7 +60,7 @@ domain understanding should follow a topdown layout, going from the most general
 is not easy because the person doing this must understand both domain and tech to act as a bridge between customers and
 devs. </br>
 
-## Entity <a name="Entity"></a>
+## Entity <a name="entity"></a>
 
 /balance/entity: please
 view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/entity </br>
@@ -73,7 +73,7 @@ of information but it is an entity, and it is unique. </br>
 An entity will be instantiated and used for many services, it is unique so there must be no difference in properties
 between services or modules. This is an important property of the entity. </br>
 
-## Aggregate <a name="Aggregate"></a>
+## Aggregate <a name="aggregate"></a>
 
 ![](img/value_object.png) </br>
 ![](img/aggregate.png) </br>
@@ -96,7 +96,7 @@ maintainability of ddd. In this design, I put the aggregate in the layout domain
 Example: https://github.com/percybolmer/ddd-go/blob/master/aggregate/customer.go#L18-L26
 , https://levelup.gitconnected.com/practical-ddd-in-golang-aggregate-de13f561e629. <br>
 
-## Infrastructure <a name="Infrastructure"></a>
+## Infrastructure <a name="infrastructure"></a>
 
 ![](img/infra.png) </br>
 balance/infrastructure: please
@@ -111,7 +111,7 @@ discussion: https://stackoverflow.com/questions/3499119/which-layer-should-repos
 , https://learn.microsoft.com/en-us/dotnet/architecture/microservices
 /microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design). <br>
 
-## Repositories <a name="Repositories"></a>
+## Repositories <a name="repositories"></a>
 
 Please
 view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/infrastructure/db/repository </br>
@@ -120,14 +120,14 @@ common data access functionality, providing better maintainability and decouplin
 to access databases from the domain model layer. Repositories are familiar and popular with most web app developers. In
 ddd I put the repo in the infrastructure. </br>
 
-## User Interface <a name="UserInterface"></a>
+## User Interface <a name="user_interface"></a>
 
 balance/interfaces: Please
 view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/interfaces </br>
 It is the starting and ending point of every interaction with the user. All api define, features, interactions will be
 done in the layout interface. </br>
 
-## DTO <a name="DTO"></a>
+## DTO <a name="dto"></a>
 
 balance/interfaces/controller/dto : please
 view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/interfaces/controller/dto </br>
@@ -139,19 +139,19 @@ In this design, I split into 2 dtos for request and response, all input and oupu
 the project. Imagine it as the beginning and the end of a river, the river is like the logical flow of your
 service. </br>
 
-## API Interface <a name="APIInterface"></a>
+## API Interface <a name="api_interface"></a>
 
 balance/interfaces/controller/api: please
 view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/interfaces/controller/api </br>
 This is a thin layer in the interface that handles user interface related actions for the api feature. </br>
 
-## WEB Interface <a name="WEBInterface"></a>
+## WEB Interface <a name="web_interface"></a>
 
 balance/interfaces/controller/web: please
 view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/interfaces/controller/web </br>
 This is a thin layer in the interface that handles user interface related actions for the web feature. </br>
 
-## Packet layer <a name="PacketLayer"></a>
+## Packet layer <a name="packet_layer"></a>
 
 balance/pkg: please
 view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/pkg </br>
@@ -164,7 +164,7 @@ In this design, pkg will synthesize all the code logic that is not in a specific
 common validate, common video parser, ... It should be put in packet and will be called by higher layouts such as
 domain, application, interface, ... when used. </br>
 
-## Application <a name="Application"></a>
+## Application <a name="application"></a>
 
 ![](img/application.png) </br>
 balance/application: please
@@ -175,7 +175,7 @@ Application is a lightweight class, intermediate between interfaces and domains,
 Specifically, Application will perform most of the connection functions between interface and domain, return object of
 domain, convert result from domain to JSON, XML is also often implemented in this layout. </br>
 
-## Services <a name="Services"></a>
+## Services <a name="services"></a>
 
 balance/application/service.go: Please
 view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/blob/master/balance/application/service.go
@@ -183,7 +183,7 @@ A thin layer I put in application. Application is a thin layout connecting the i
 Application, I create a thin class that is a service that aggregates all the interfaces that the Application must have,
 also where the user interface will interact with the Application. </br>
 
-## Value Object <a name="ValueObject"></a>
+## Value Object <a name="value_object"></a>
 
 ![](img/value_object.png) </br>
 /balance/value_object: Please
@@ -198,7 +198,7 @@ view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceServ
 peculiarity of golang, the large value object goes hand in hand with interface and function, and I have kept it in this
 design </br>
 
-## Module <a name="Module"></a>
+## Module <a name="module"></a>
 
 balance/module.go: please
 view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/blob/master/balance/module.go.
