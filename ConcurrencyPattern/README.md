@@ -4,7 +4,7 @@
 - [Distinctive concurrency and parallelism?](#distinctive_concurrency_and_parallelism)
 - [What is problem concurrency then it's not strong](#whats_is_problem_concurrency_then_it_not_strong)
 - [Pattern](#pattern)
-    - [1) Pass chan to function](#1PassChanToFunction)
+    - [1) Pass chan to function](#1_pass_chan_to_function)
     - [2) Generator](#2Generator)
     - [3) Fan in](#3FanIn)
     - [4) Restore sequence](#4RestoreSequence)
@@ -81,7 +81,7 @@ Assume problem run on computer has only one core CPU. You are never way implemen
 have way implement concurrency in this context. </br>
 ===>    Think about this context, you will understand Distinctive concurrency and parallelism. </br>
 
-## What is problem concurrency then it's not strong ?  <a name="whats_is_problem_concurrency_then_it_not_strong?"></a>
+## What is problem concurrency then it's not strong ?  <a name="whats_is_problem_concurrency_then_it_not_strong"></a>
 
 If bottleneck of problems is not dependency concurrency, is dependency for other condition (io, disk,...), have
 constraint condition in this task concurrency. Ex: you update inventory, you implement one lock for every update. When
@@ -103,7 +103,7 @@ worker poll remote memory
 workker pool thich hop cho job don gian, khong có qua nhieu custom va quan hẹ data, nó tien cho nguoi dung việc khởi tạo
 và clear tài nguyên đã được thư viện làm hết rồi
 
-## 1) Pass chan to function  <a name="1PassChanToFunction"></a>
+## 1) Pass chan to function  <a name="1_pass_chan_to_function"></a>
 
 ![](img/channel.png) </br>
 Example
