@@ -1,4 +1,4 @@
-- [Introduce](#introduceA)
+- [Introduce](#introduce_a)
 - [What is Concurrency?](#whatIsConcurrency)
 - [Why use concurrency?](#whyUseConcurrency)
 - [Distinctive concurrency and parallelism?](#distinctiveConcurrencyAndParallelism)
@@ -36,7 +36,7 @@
     - [30) Best practice use worker pool](#30BestPracticeUseWorkerPool)
     - [31) Simple http server](#31SimpleHttpServer)
 
-## Introduce <a name="introduceA"></a>
+## Introduce <a name="introduce_a"></a>
 
 In golang, everything is concurrency, almost : worker of a webserver, worker of a certain process, worker of a certain
 tool. Concurrency is a built-in mechanism at the language layer of golang. Working with concurrency has never been easy.
