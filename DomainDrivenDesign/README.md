@@ -2,7 +2,7 @@
 - [Source](#Source)
 - [Directories](#Directories)
     - [Layout](#Layout)
-    - [Domain](#Domain)
+    - [Domain](#domain)
     - [Entity](#Entity)
     - [Aggregate](#Aggregate)
     - [Infrastructure](#Infrastructure)
@@ -39,7 +39,7 @@ This source template is: https://github.com/Nghiait123456/HighPerformancePayment
 This is the most comprehensive and visual diagram of ddd. However, for newbies, it is not easily accessible. I give the
 most general layout and dissect each section with examples with real code. </br>
 
-## Domain <a name="Domain"></a>
+## Domain <a name="domain"></a>
 
 1)
 
