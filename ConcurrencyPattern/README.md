@@ -1,9 +1,9 @@
-- [Introduce](#Introduce)
-- [What is Concurrency?](#WhatIsConcurrency?)
-- [Why use concurrency?](#WhyUseConcurrency?)
-- [Distinctive concurrency and parallelism?](#DistinctiveConcurrencyAndParallelism?)
-- [What is problem concurrency then it's not strong](#WhatsIsProblemConcurrencyThenIt'sNotStrong?)
-- [Pattern](#Pattern)
+- [Introduce](#introduce)
+- [What is Concurrency?](#whatIsConcurrency?)
+- [Why use concurrency?](#whyUseConcurrency?)
+- [Distinctive concurrency and parallelism?](#distinctiveConcurrencyAndParallelism?)
+- [What is problem concurrency then it's not strong](#whatsIsProblemConcurrencyThenIt'sNotStrong?)
+- [Pattern](#pattern)
     - [1) Pass chan to function](#1PassChanToFunction)
     - [2) Generator](#2Generator)
     - [3) Fan in](#3FanIn)
@@ -36,7 +36,7 @@
     - [30) Best practice use worker pool](#30BestPracticeUseWorkerPool)
     - [31) Simple http server](#31SimpleHttpServer)
 
-## Introduce <a name="Introduce"></a>
+## Introduce <a name="introduce"></a>
 
 In golang, everything is concurrency, almost : worker of a webserver, worker of a certain process, worker of a certain
 tool. Concurrency is a built-in mechanism at the language layer of golang. Working with concurrency has never been easy.
@@ -46,7 +46,7 @@ unpredictable and difficult to control </br>
 I and you dissect the level increment simultaneously, along with the best practices when using it. </br>
 Concurrency:  easy to start, but not easy to stop. Here we go!!! </br>
 
-## What is Concurrency? <a name="WhatIsConcurrency"></a>
+## What is Concurrency? <a name="whatIsConcurrency"></a>
 
 ![](img/concurrency_define.png) </br>
 Concurrency is the composition of independently executing computations. Concurrency is a way to structure software,
@@ -64,14 +64,14 @@ are 3 main way implement: </br>
 2) pool routine for all request ( in at time, one routine handle one request) </br>
 3) pool routine with event(Epool, ...) </br>
 
-## Why use concurrency? <a name="WhyUseConcurrency?"></a>
+## Why use concurrency? <a name="whyUseConcurrency?"></a>
 
 Concurrency promoting strength in problems: high load, repeating, not much logic interwoven between tasks in one
 problem. This problems are many times in present: handle request, handle socket, handle message queue, call api, handle
 big data ... This is reason concurrency is increasingly popular. </br>
 In Golang, concurrency implement in routine, one routine cost is 2 to 8 kb ==> mini cost for concurrency. </br>
 
-## Distinctive concurrency and parallelism?  <a name="DistinctiveConcurrencyAndParallelism?"></a>
+## Distinctive concurrency and parallelism?  <a name="distinctiveConcurrencyAndParallelism?"></a>
 
 ![](img/parallelism.png) </br>
 For wiki: "Task parallelism (also known as function parallelism and control parallelism) is a form of parallelization of
@@ -81,7 +81,7 @@ Assume problem run on computer has only one core CPU. You are never way implemen
 have way implement concurrency in this context. </br>
 ===>    Think about this context, you will understand Distinctive concurrency and parallelism. </br>
 
-## What is problem concurrency then it's not strong ?  <a name="WhatsIsProblemConcurrencyThenIt'sNotStrong?"></a>
+## What is problem concurrency then it's not strong ?  <a name="whatsIsProblemConcurrencyThenIt'sNotStrong?"></a>
 
 If bottleneck of problems is not dependency concurrency, is dependency for other condition (io, disk,...), have
 constraint condition in this task concurrency. Ex: you update inventory, you implement one lock for every update. When
@@ -92,7 +92,7 @@ mutex) </br>
 ==> In this problems, children task run on routine is not run independence, problems is not really for concurrency, it
 is need other solution. </br>
 
-## Pattern  <a name="Pattern"></a>
+## Pattern  <a name="pattern"></a>
 
 todo keep 18 not die
 concurency pattern advance
