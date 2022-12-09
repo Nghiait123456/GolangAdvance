@@ -151,7 +151,7 @@ be. </br>
 continued to a higher layer. Logging it and throw htttp 500 with html via one panic if context is http server. It will
 be elegant and logical. </br>
 
-+) UUID can be a tool worth considering to help clear errors. A UUID that crosses the context and is logged with states
++) UUID can be a tool worth considering to help clearly errors. A UUID that crosses the context and is logged with states
 is a good choice for tracing and debugging complex error cases. I often use this method in projects. I will have an
 elegant error code returned to the client. It's like a black box, only me and my team know and debug it deeply. </br>
 
