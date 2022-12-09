@@ -108,8 +108,8 @@ There is a classic question that gets many opinions: Should repositories be save
 infrastructure layout. For me, I want to keep the domain as minimal logic that domain has, so I usually put the
 repository and infrastructure. (A good
 discussion: https://stackoverflow.com/questions/3499119/which-layer-should-repositories-go-in
-, https://learn.microsoft.com/en-us/dotnet/architecture/microservices
-/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design). <br>
+, https://learn.microsoft.com/en-us/dotnet/architecture/microservices,
+https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design). <br>
 
 ## Repositories <a name="repositories"></a>
 
@@ -198,7 +198,7 @@ view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceServ
 peculiarity of golang, the large value object goes hand in hand with interface and function, and I have kept it in this
 design </br>
 
-## Module <a name="module"></a>
+## Modules <a name="modules"></a>
 
 balance/module.go: please
 view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/blob/master/balance/module.go.
