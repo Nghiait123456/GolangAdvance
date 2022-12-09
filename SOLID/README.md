@@ -1,11 +1,11 @@
-- [Preview](#Preview)
-- [Single Responsibility Principle](#SingleResponsibilityPrinciple)
-- [Open/Closed Principle](#OpenClosedPrinciple)
-- [Liskov Substitution Principle](#LiskovSubstitutionPrinciple)
-- [Interface Segregation Principle](#InterfaceSegregationPrinciple)
-- [Dependency Inversion Principle](#DependencyInversionPrinciple)
-- [Refer](#Refer)
-## Preview <a name="Preview"></a>
+- [Preview](#preview)
+- [Single Responsibility Principle](#single_responsibility_principle)
+- [Open/Closed Principle](#open_closed_principle)
+- [Liskov Substitution Principle](#liskov_substitution_principle)
+- [Interface Segregation Principle](#interface_segregation_principle)
+- [Dependency Inversion Principle](#dependency_inversion_principle)
+- [Refer](#refer)
+## Preview <a name="preview"></a>
 
 In 2002 Robert Martin published his book, Agile Software Development, Principles, Patterns, and Practices. In it he
 describes five principles of reusable software design, which he called the SOLID principles, after the first letters in
@@ -21,7 +21,7 @@ These principles quickly became well known and popular in the software industry.
 they are the most general principles of code layout. In this document, I dissect and learn how to use it in go to write
 good code. </br>
 
-## Single Responsibility Principle <a name="SingleResponsibilityPrinciple"></a>
+## Single Responsibility Principle <a name="single_responsibility_principle"></a>
 
 “Do one thing and do it well” — McIlroy (Unix philosophy) </br>
 
@@ -47,7 +47,7 @@ to maintain, and there is always a potential for bugs. </br>
 Here, add a struct PartnerRisk that handles and checks partner-related risks. When the ParterRisk code needs to grow, it
 will be free with the BalanceCalculator, and it is completely divisible depending on the domain business. </br>
 
-## Open/Closed Principle <a name="OpenClosedPrinciple"></a>
+## Open/Closed Principle <a name="open_closed_principle"></a>
 
 ![OpenClosedPrinciple_1.png](img%2FOpenClosedPrinciple_1.png) </br>
 ![OpenClosedPrinciple_2_1.png](img%2FOpenClosedPrinciple_2_1.png) </br>
@@ -162,7 +162,7 @@ func NewPayment(partnerCode string) PaymentInterface {
 Good practice of this principle requires a deep understanding of it and an understanding of the module you are
 coding. </br>
 
-## Liskov Substitution Principle <a name="LiskovSubstitutionPrinciple"></a>
+## Liskov Substitution Principle <a name="liskov_substitution_principle"></a>
 
 ![LiskovSubstitutionPrinciple_1.png](img%2FLiskovSubstitutionPrinciple_1.png) </br>
 ![LiskovSubstitutionPrinciple_2.png](img%2FLiskovSubstitutionPrinciple_2.png) </br>
@@ -259,7 +259,7 @@ designed to implement its implementation without doing any complicated processin
 interface. The explicit embedded structure is also used nearly everywhere in other packages that develop and use this
 platform package. </br>
 
-## Interface Segregation Principle <a name="InterfaceSegregationPrinciple"></a>
+## Interface Segregation Principle <a name="interface_segregation_principle"></a>
 
 ![InterfaceSegregationPrinciple.png](img%2FInterfaceSegregationPrinciple.png) </br>
 “Many client specific interfaces are better than one general purpose interface” — Robert C. Martin </br>
@@ -283,7 +283,7 @@ CheckRiskFrPaymentGateway(amount uint64) bool appears at , AmountCardRiskInterfa
 client uses a native interface with CheckRiskFrPaymentGateway(amount uint64) bool so it is not isolated. </br>
 
 
-## Dependency Inversion Principle <a name="DependencyInversionPrinciple"></a>
+## Dependency Inversion Principle <a name="dependency_inversion_principle"></a>
 ![DependencyInversionPrinciple.png](img%2FDependencyInversionPrinciple.png) </br>
 “Depend upon Abstractions. Do not depend upon concretions” — Robert C. Martin </br>
 Class A depends on class B and use it directly. Class B is a concrete type, which means any changes on class B, will
@@ -297,7 +297,7 @@ interface I may exist. And class A can be used by other classes with different i
 Golang fully meets this principle through interface and embedded struct. More broadly, a best practice for DI golang, I
 have a detailed dissection of it: https://github.com/Nghiait123456/GolangAdvance/tree/master/DI </br>
 
-## Refer <a name="Refer"></a>
+## Refer <a name="refer"></a>
 https://web.archive.org/web/20150906155800/http://www.objectmentor.com/resources/articles/Principles_and_Patterns.pdf </br>
 https://s8sg.medium.com/solid-principle-in-go-e1a624290346 </br>
 https://dave.cheney.net/2016/08/20/solid-go-design </br>
