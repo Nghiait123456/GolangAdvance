@@ -1,8 +1,8 @@
 - [Introduce](#introduce)
-- [What is Concurrency?](#what_is_concurrency?)
-- [Why use concurrency?](#whyUseConcurrency?)
-- [Distinctive concurrency and parallelism?](#distinctiveConcurrencyAndParallelism?)
-- [What is problem concurrency then it's not strong](#whatsIsProblemConcurrencyThenIt'sNotStrong?)
+- [What is Concurrency?](#whatIsConcurrency)
+- [Why use concurrency?](#whyUseConcurrency)
+- [Distinctive concurrency and parallelism?](#distinctiveConcurrencyAndParallelism)
+- [What is problem concurrency then it's not strong](#whatsIsProblemConcurrencyThenIt'sNotStrong)
 - [Pattern](#pattern)
     - [1) Pass chan to function](#1PassChanToFunction)
     - [2) Generator](#2Generator)
@@ -46,7 +46,7 @@ unpredictable and difficult to control </br>
 I and you dissect the level increment simultaneously, along with the best practices when using it. </br>
 Concurrency:  easy to start, but not easy to stop. Here we go!!! </br>
 
-## What is Concurrency? <a name="what_is_concurrency"></a>
+## What is Concurrency? <a name="whatIsConcurrency"></a>
 
 ![](img/concurrency_define.png) </br>
 Concurrency is the composition of independently executing computations. Concurrency is a way to structure software,
