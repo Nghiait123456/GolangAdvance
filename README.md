@@ -3,7 +3,7 @@
 - [DomainDrivenDesign](#domain_driven_design)
 - [Proverbs](#proverbs)
 - [DI](#di)
-- [ErrorsHandling](errors_handling)
+- [ErrorsHandling](#errors_handling)
 - [Guidelines](#guidelines)
 - [Style](#style)
 - [SOLID](#solid)
