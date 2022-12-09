@@ -1,7 +1,7 @@
 - [Preview](#preview)
-- [Type of DI](#type_of_di])
-- [When use DI](#when_use_di])
-- [Best practice](#best_practice])
+- [Type of DI](#type_of_di)
+- [When use DI](#when_use_di)
+- [Best practice](#best_practice)
 
 ## Preview <a name="preview"></a>
 
