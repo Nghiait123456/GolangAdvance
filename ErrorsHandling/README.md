@@ -1,12 +1,12 @@
-- [Preview](#Preview)
-- [Base error](#BaseError)
-- [Sentinel errors](#SentinelErrors)
-- [Custom errors types](#CustomErrorsTypes)
-- [Wrapping errors default](#WrappingErrorsDefault)
-- [Package smart warp errors](#PackageSmartWarpErrors)
-- [A few additional notes when handling errors](#AFewAdditionalNotesWhenHandlingErrors)
-- [Refer](#Refer)
-## Preview <a name="Preview"></a>
+- [Preview](#preview)
+- [Base error](#base_error)
+- [Sentinel errors](#sentinel_errors)
+- [Custom errors types](#custom_errors_types)
+- [Wrapping errors default](#wrapping_errors_default)
+- [Package smart warp errors](#package_smart_warp_errors)
+- [A few additional notes when handling errors](#a_few_additional_notes_when_handling_errors)
+- [Refer](#refer)
+## Preview <a name="preview"></a>
 
 A famous quote in the programming world: "Don't just check errors, handle them gracefully". I have a description of it
 in the
@@ -17,7 +17,7 @@ In golang, error is treated as a variable and is treated as a variable. It is ve
 for error handling for most cases in go, which is nearly impossible. In this document, I present techniques for graceful
 and efficient error handling and best practices from my experience. </br>
 
-## Base error <a name="BaseError"></a>
+## Base error <a name="base_error"></a>
 
 Please view: https://github.com/Nghiait123456/GolangAdvance/blob/master/ErrorsHandling/base/main.go </br>
 
@@ -35,7 +35,7 @@ Error() string
 This is an unwritten rule and is accepted by all packages and the community. Every type of error, whatever its purpose
 and usage, is an instance of the error interface. It creates a unified and highly reusable error handling system. </br>
 
-## Sentinel errors <a name="SentinelErrors"></a>
+## Sentinel errors <a name="sentinel_errors"></a>
 
 Please view: https://github.com/Nghiait123456/GolangAdvance/blob/master/ErrorsHandling/sentinel_errors/main.go </br>
 
@@ -56,7 +56,7 @@ In most cases, you will be less likely to need to use sentinel errors. Use senti
 system only needs error messages and doesn't care much about the stack trace of that error. If you are sure about that,
 you can use sentinel errors. In my experience, there is very little cases where sentinel errors are needed. </br>
 
-## Custom errors types <a name="CustomErrorsTypes"></a>
+## Custom errors types <a name="custom_errors_types"></a>
 
 Please view:
 https://github.com/Nghiait123456/GolangAdvance/blob/master/ErrorsHandling/custom_error_types/main.go </br>
@@ -80,7 +80,7 @@ Custom type errors are usually used for the final state of an object. I have the
 the final state of the code and parameters, this final state specifies the contexts of the error. I don't need to trace
 stack errors for more error information, here, I just need the params to clarify the context. </br>
 
-## Wrapping errors default <a name="WrappingErrorsDefault"></a>
+## Wrapping errors default <a name="wrapping_errors_default"></a>
 
 Please
 view: https://github.com/Nghiait123456/GolangAdvance/blob/master/ErrorsHandling/wrapping_errors/default_golang_programing/main.go </br>
@@ -90,7 +90,7 @@ error to clarify the error context, wrap the error and trace it dynamically.
 Best pratice:
 It is the perfect complement to sentinel error if you just need error message and error stack trace. </br>
 
-## Package smart warp errors <a name="PackageSmartWarpErrors"></a>
+## Package smart warp errors <a name="package_smart_warp_errors"></a>
 
 Please
 view: https://github.com/Nghiait123456/GolangAdvance/blob/master/ErrorsHandling/wrapping_errors/package_smart_warp/main.go </br>
@@ -105,7 +105,7 @@ dealing with a process in the middle, encountering errors caused by multiple lay
 the error base or the common errors, warp it and return it, a context trace errors history will be established and won't
 break the original error. Let's print it to the screen, and looking at the security, you can log it. </br>
 
-## A few additional notes when handling errors <a name="AFewAdditionalNotesWhenHandlingErrors"></a>
+## A few additional notes when handling errors <a name="a_few_additional_notes_when_handling_errors"></a>
 
 +) Using too many error types in a package or a module: <br>
 Using too many types of errors will surprise the followers of the errors, and sometimes the writers themselves. I
@@ -143,7 +143,7 @@ func fn() error {
 }
 ```
 
-in Foo there are a lot of error cases, but when you get an error you simply return it to the higher layer. It can drop
+In Foo there are a lot of error cases, but when you get an error you simply return it to the higher layer. It can drop
 valuable context, warp extra data,... opaque errors themselves are not bad, but in most cases opaque errors should
 be. </br>
 
@@ -156,7 +156,7 @@ is a good choice for tracing and debugging complex error cases. I often use this
 elegant error code returned to the client. It's like a black box, only me and my team know and debug it deeply. </br>
 
 
-## Refer <a name="Refer"></a>
+## Refer <a name="refer"></a>
   https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully </br>
   https://go.dev/blog/error-handling-and-go </br>
   https://earthly.dev/blog/golang-errors/ </br>
