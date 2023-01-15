@@ -1,0 +1,1 @@
+https://medium.com/goingogo/why-use-testmain-for-testing-in-go-dafb52b406bc
