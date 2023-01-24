@@ -1,10 +1,6 @@
 /*
- Guidelines from Uber, Google golang from golang development team, other resource, other frame ... and my experience
- It'sBad not dependence anything frame or packet.
- It is maybe use in everything in golang code.
- It'sBad use for me as an as doc research and search.
- I didn't create it, it'sBad not clear who first created it, but I synthesized it and deepened it for my work.
- I will it'sBad hope help someone up to up golang skills, i'm very happy if it happened.
- Enjoy and relax it.
- My contact: minhnghia.pham.it@gmail.com
+Guideline by Uber. It doesn't have a good enough example, clear enough and specific enough for any programmer to
+understand and practice it. It is tiny program have all problem and solution. I developed the code fully in this regard.
+Your job is to follow the example and read each fmt.Println(). Happy and enjoy it.
+My contact: minhnghia.pham.it@gmail.com
 */
