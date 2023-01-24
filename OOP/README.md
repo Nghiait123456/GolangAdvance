@@ -6,7 +6,7 @@
 
 ## Preview <a name="preview"></a>
 
-Golang is born as an extremely powerful and preeminent concurrency language in today's world, bettering a long-standing
+Golang is born as an extremely powerful and preeminent concurrency language in today'sBad world, bettering a long-standing
 concurrency approach, a big idea about using server resources. As you know, golang itself is not pure OOP, but I can
 develop fully OOP guarantee code in go. A large, complex, feature-rich project is completely deployable and easy to
 maintain in golang with the powerful tools it provides. </br>

@@ -14,14 +14,14 @@ type S2 struct{}
 
 func (s *S2) f() {}
 
-func main1() {
+func InterfaceSatisfiedPointer() {
 	s1Val := S1{}
 	s1Ptr := &S1{}
 	s2Val := S2{}
 	s2Ptr := &S2{}
 
 	fmt.Printf("%v %v %v %v", s1Val, s1Ptr, s2Val, s2Ptr)
-
+	fmt.Println("one interface satisfied both pointer and value")
 	var i F
 	i = s1Val
 	fmt.Printf("%v", i)
@@ -30,15 +30,15 @@ func main1() {
 	i = s2Ptr
 	fmt.Printf("%v", i)
 
-	// The following doesn't compile, since s2Val is a value, and there is no value receiver for f.
+	fmt.Println("The following doesn't compile, since s2Val is a value, and there is no value receiver for f. You can pass pointer and success with i = &s2Val")
 	//i = s2Val
-
+	i = &s2Val
 }
 
 //explain:
 /**
- in main_ring_limit.go edit function main to main1, in file main1.go edit function man1 to main.
- run code main1.go, code run success
+ in main_ring_limit.go edit function main to main1, in file intaerface_statisfied_pointer.go edit function man1 to main.
+ run code intaerface_statisfied_pointer.go, code run success
 
  if uncmt line 34, i = s2Val, you run and get error:
        cannot use s2Val (type S2) as type F in assignment:

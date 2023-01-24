@@ -4,7 +4,6 @@ import "fmt"
 
 type Fooer interface {
 	DummyName()
-	//SetName(name string)
 }
 
 type Foo struct {
@@ -15,25 +14,13 @@ func (f Foo) DummyName() {
 	fmt.Printf(f.Name)
 }
 
-//func (f *Foo) SetName(name string) {
-//	f.Name = name
-//}
-
 func main() {
 	var f1 = Foo{Name: "f1"}
 	var f2 = &Foo{Name: "f2"}
-
+	fmt.Println("You almost never need a pointer to an interface. You should be passing interfaces as values—the underlying data can still be a pointer. An interface is two fields:\n\nA pointer to some type-specific information. You can think of this as \"type.\"\nData pointer. If the data stored is a pointer, it’s stored directly. If the data stored is a value, then a pointer to the value is stored")
+	fmt.Println("Ex: Fooer interface access both value or pointer")
 	DoFoo(f1)
 	DoFoo(f2)
-
-	f1.DummyName()
-	f2.DummyName()
-
-	//f1.SetName("f1New")
-	//f2.SetName("f2New")
-
-	//f1.DummyName()
-	//f2.DummyName()
 }
 
 func DoFoo(f Fooer) {

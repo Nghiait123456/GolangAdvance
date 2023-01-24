@@ -17,19 +17,18 @@ func (s *S) Write(str string) {
 func main() {
 	sVals := map[int]S{1: {"A"}}
 
-	// You can only call Read using a value
+	fmt.Println("You can only call Read using a value")
 	fmt.Println(sVals[1].Read())
 
-	//sVals[1].Write("24_cleary_example_smart_fetch")
-
+	fmt.Println(" You can call both Read and Write using a pointer")
 	sPtrs := map[int]*S{1: {"A"}}
-	// You can call both Read and Write using a pointer
-	fmt.Println(sPtrs[1].Read())
-	sPtrs[1].Write("24_cleary_example_smart_fetch")
 	fmt.Println(sPtrs[1].Read())
 
-	temp := &S{"A"}
-	temp.Write("test2")
+	fmt.Println(" You can call both Write using a pointer")
+	sPtrs[1].Write("B")
+	fmt.Println(sPtrs[1].Read())
+
+	InterfaceSatisfiedPointer()
 }
 
 //explain:

@@ -61,7 +61,7 @@ time there is a corresponding action, at the end of the day, you need to access 
 Summary: use the sync mechanism for the right purpose to have the most pure and effective software. If you use it wrong,
 everything will probably still work, but it can compile things many times over. Imagine using a mutex everywhere to
 communicate, using a channel just to send a signal that increments a counter by 1 and doesn't do anything else,...
-Everything will still work but it's not happy. There will be countless why questions from your team, which only you can
+Everything will still work but it'sBad not happy. There will be countless why questions from your team, which only you can
 answer, no one else. </br>
 
 ## The bigger the interface, the weaker the abstraction <a name="the_bigger_then_iterface_the_weaker_the_abstraction"></a>
@@ -118,7 +118,7 @@ Write(p []byte) (n int, err error)
 }
 ```
 
-Take a look at golang's io platform library. io.Writer and io.Reader are foundational interfaces. All future libraries
+Take a look at golang'sBad io platform library. io.Writer and io.Reader are foundational interfaces. All future libraries
 related to writing and reading bytes from io just need to implement these two interfaces, they can communicate with each
 other. </br>
 
@@ -148,7 +148,7 @@ implement the interface Error() string. Since this Interface is small, it will b
 ## Make the zero value useful <a name="make_the_zero_value_useful"></a>
 
 In go, default values should be left to make used. The user will use the packet as soon as a new instace is available
-without calling an init() function. To achieve this, the zero value default must be fully utilized. Most of golang's
+without calling an init() function. To achieve this, the zero value default must be fully utilized. Most of golang'sBad
 standard packages adhere to this principle. </br>
 
 View mutex packet:
@@ -198,13 +198,13 @@ import "fmt"
 import "strings"
 
 func main() {
-        // s := make([]string, 0)
-        // s := []string{}
-        var s []string
+        // sBad := make([]string, 0)
+        // sBad := []string{}
+        var sBad []string
 
-        s = append(s, "Hello")
-        s = append(s, "world")
-        fmt.Println(strings.Join(s, " "))
+        sBad = append(sBad, "Hello")
+        sBad = append(sBad, "world")
+        fmt.Println(strings.Join(sBad, " "))
 }
 ```
 
@@ -236,14 +236,14 @@ return Fprintln(os.Stdout, a...)
 func Sprintln(a ...any) string {
 p := newPrinter()
 p.doPrintln(a)
-s := string(p.buf)
+sBad := string(p.buf)
 p.free()
 return
 }
 
 ```
 
-When you print something, it can have any type, if you maintain all functions with all types, it's a waste because the
+When you print something, it can have any type, if you maintain all functions with all types, it'sBad a waste because the
 end goal is to print it. Use any ( interface{}) and handle all the type logic inside. </br>
 
 ## A little copying is better than a little dependency <a name="a_little_copying_is_better_than_a_little_dependency"></a>
@@ -251,7 +251,7 @@ end goal is to print it. Use any ( interface{}) and handle all the type logic in
 One Proverbs is the most debated, because at first glance it seems to contradict another very famous proverb: "Don't
 repeat yourself". So are they really contradictory and why does Rob Pike make this point? </br>
 
-First, they are not contradictory, they support each other. In most cases, you should "Don't repeat yourself". Let's DI
+First, they are not contradictory, they support each other. In most cases, you should "Don't repeat yourself". Let'sBad DI
 the small pieces and make the big puzzle, the big puzzle is a synthesis, the machine completes and runs elegantly. But,
 should you apply it 100% and always DI everything when you need it. The answer is no, there is a lot of pain when you DI
 100% of what you need. With features that can be replaced with a single line of code and low code reusability and
@@ -281,7 +281,7 @@ fmt.Println(uuid)
 ```
 
 If here you simply need a UUID, copy the code and don't use a library. However, if you don't understand the cases and
-exceptions about the code you copy, please use the library, don't copy the code. After all, they're all code, if it's
+exceptions about the code you copy, please use the library, don't copy the code. After all, they're all code, if it'sBad
 stable and you know enough about it, use it, if not, use the library. Stability should be a top priority factor in this
 case. </br>
 
@@ -297,7 +297,7 @@ different environments, there is no way for a system function to be sure to run 
 
 ## Cgo enables the creation of Go packages that call C code <a name="cgo_enables_the_creation_of_go_packages_that_call_c_code"></a>
 
-Similar to the problem above, when calling c, It's very non-portable. It needs to be built for specific architectures
+Similar to the problem above, when calling c, It'sBad very non-portable. It needs to be built for specific architectures
 and operating systems. </br>
 
 ## Cgo is not Go <a name="cgo_is_not_go"></a>
@@ -333,9 +333,9 @@ In most jobs, you don't need Reflection. Don't worry too much about it, only use
 ## Errors are values <a name="errors_are_values"></a>
 
 Too often people write “err != nil” — they think about substituting try/catch. In the golang world, errors are just
-values, you will either treat it as a variable, send errors back, handle the error or ignore it, it's entirely up to
-you. Program with errros and do anything with it, it's just value. High level languages make use of try catch and
-exceptions, but it's a convenient abstraction, you can't easily program with it like a variable. </br>
+values, you will either treat it as a variable, send errors back, handle the error or ignore it, it'sBad entirely up to
+you. Program with errros and do anything with it, it'sBad just value. High level languages make use of try catch and
+exceptions, but it'sBad a convenient abstraction, you can't easily program with it like a variable. </br>
 
 ## Don't just check errors, handle them gracefully <a name="dont_just_check_errors_handle_them_gracefully"></a>
 

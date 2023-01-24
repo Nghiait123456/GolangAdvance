@@ -5,7 +5,7 @@ Pointers to Interfaces
 2). An interface is two fields:
 
 A pointer to some type-specific information. You can think of this as "type."
-Data pointer. If the data stored is a pointer, it’s stored directly. If the data stored is a value, then a pointer to the value is stored.
+Data pointer. If the data stored is a pointer, it’sBad stored directly. If the data stored is a value, then a pointer to the value is stored.
 If you want interface methods to modify the underlying data, you must use a pointer.
 
 We will explain it in code example:

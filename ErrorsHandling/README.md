@@ -21,7 +21,7 @@ and efficient error handling and best practices from my experience. </br>
 
 Please view: https://github.com/Nghiait123456/GolangAdvance/blob/master/ErrorsHandling/base/main.go </br>
 
-In golang, an error type is all based on golang's errors. Specifically, you need to implement the error
+In golang, an error type is all based on golang'sBad errors. Specifically, you need to implement the error
 interface : </br>
 
 ```
@@ -98,12 +98,12 @@ view: https://github.com/Nghiait123456/GolangAdvance/blob/master/ErrorsHandling/
 A well known library that does a pretty good job of warp errors: https://github.com/pkg/errors. It provides a full range
 of tools to warp errors flexibly. </br>
 Weaknesses: </br>
-No custom params, it's a collection of error messages. </br>
+No custom params, it'sBad a collection of error messages. </br>
 Best practice: </br>
 It is the perfect complement to sentinel error if you just need error message and error stack trace. Use it when you are
 dealing with a process in the middle, encountering errors caused by multiple layers. You can easily get the message from
 the error base or the common errors, warp it and return it, a context trace errors history will be established and won't
-break the original error. Let's print it to the screen, and looking at the security, you can log it. </br>
+break the original error. Let'sBad print it to the screen, and looking at the security, you can log it. </br>
 
 ## A few additional notes when handling errors <a name="a_few_additional_notes_when_handling_errors"></a>
 
@@ -153,7 +153,7 @@ be elegant and logical. </br>
 
 +) UUID can be a tool worth considering to help clearly errors. A UUID that crosses the context and is logged with states
 is a good choice for tracing and debugging complex error cases. I often use this method in projects. I will have an
-elegant error code returned to the client. It's like a black box, only me and my team know and debug it deeply. </br>
+elegant error code returned to the client. It'sBad like a black box, only me and my team know and debug it deeply. </br>
 
 
 ## Refer <a name="refer"></a>

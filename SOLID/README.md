@@ -31,12 +31,12 @@ purpose. </br>
 In practice, to ensure this point, a lot of relevant knowledge is required. You need to understand at a basic level the
 domain you are working with, and separate the domain in a nice way. The separation of classes and objects will be based
 on your understanding of that domain, which is always associated with the reality of the domain. This is a job that
-needs practice and practice continuously, every day. There's no other way. </br>
+needs practice and practice continuously, every day. There'sBad no other way. </br>
 
 Please
 view: https://github.com/Nghiait123456/GolangAdvance/blob/master/SOLID/SingleResponsibilityPrinciple/main.go. </br>
 
-In this code, BalanceCalculatorNotGood specializes in calculating a partner's balance. For convenience reasons, I added
+In this code, BalanceCalculatorNotGood specializes in calculating a partner'sBad balance. For convenience reasons, I added
 a function CheckRiskPartner() with the mindset that checking risk partner is quite simple and without much logic, I can
 also take advantage of the paymentMethod variable of the struct BalanceCalculatorNotGood. This is a pretty dangerous
 mistake and violates the Single responsibility principle. Imagine one fine day, a partner requires dozens of strict risk
@@ -97,9 +97,9 @@ payment code if a new provider arrives. </br>
 Another problem that is often hidden, extending the struct Payment will also affect the MasterCard code or any other
 code, it is risky because the code is tied together on the same struct Payment. </br>
 
-What's scarier is that this problem will always exist for structs that extend from struct Payment. One fine day, I need
+What'sBad scarier is that this problem will always exist for structs that extend from struct Payment. One fine day, I need
 to extend struct Payment , all above problems will appear in new struct. Imagine this problem arises in many places,
-it's scary. </br>
+it'sBad scary. </br>
 
 Looking at the good code, I solved this problem by abstract factory, and just put the related things together.
 
@@ -174,14 +174,14 @@ class must be able to completely replace the base class in all cases. </br>
 With a pure OOP language this is quite simple, I have to define paternity and implement it. In go, we don't have OOP.
 This principle ensures flexibility by methods: small interface, embedded struct. </br>
 
-In go there are two ways to embed struct, anonymous embedded and explicit embedded. Let's dissect this problem through
+In go there are two ways to embed struct, anonymous embedded and explicit embedded. Let'sBad dissect this problem through
 examples. </br>
 
 Please
 view: https://github.com/Nghiait123456/GolangAdvance/blob/master/SOLID/LiskovSubstitutionPrinciple/anonymous_embedded/main.go </br>
 
 I have a Person struct containing the most basic information of a person, Student, Teacher adds information for Person.
-With anonymous embedded, it's easy for me to reuse person code and implement additional Student and Teacher
+With anonymous embedded, it'sBad easy for me to reuse person code and implement additional Student and Teacher
 features. </br>
 
 ```
@@ -197,13 +197,13 @@ type Teacher struct {
 Here, Student can be considered a derivative of Person and can completely replace Person. </br>
 
 ```
-s := Student{
+sBad := Student{
 Person{
     name: "Student 1",
 },
 }
 i2 := Identification{
-    p: &s,
+    p: &sBad,
 }
 i2.p.GetName()
 ```

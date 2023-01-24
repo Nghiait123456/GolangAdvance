@@ -46,20 +46,19 @@ func (m *SMap) Get(k string) string {
 }
 
 func main() {
-	fmt.Println("bad start mutex")
+	fmt.Println("mutex is run with zero value, dont need construct  value for this")
 	muBad := new(sync.Mutex)
 	muBad.Lock()
 	fmt.Println(muBad, &muBad)
 
-	fmt.Println("good start mutex")
+	fmt.Println("mutex is run success with zero value")
 	var muGood sync.Mutex
 	muGood.Lock()
 	fmt.Println(muGood, &muGood)
 
-	fmt.Println("bad start mutex")
-	var muBad1 *sync.RWMutex
-	fmt.Println(muBad1, &muBad1)
-	muBad1.Lock()
+	fmt.Println("mutex is run success with zero value embedded in struct")
+	s := NewSMap()
+	s.Get("test") // mutex in s auto available without construct
 
 }
 

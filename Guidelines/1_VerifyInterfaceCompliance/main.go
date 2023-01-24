@@ -12,13 +12,15 @@ func (mt MyType) Method2() bool {
 	return true
 }
 
-//func (mt MyType) Method() bool {
-//	return true
-//}
+func (mt MyType) Method() bool {
+	return true
+}
+
+var _ Somether = (*MyType)(nil)
 
 func main() {
-	var _ Somether = (*MyType)(nil)
 	fmt.Println("start main")
+	fmt.Println("comment var _ Somether = (*MyType)(nil): will auto check struct implement success interface, if not, i dont build code")
 }
 
 //explain:

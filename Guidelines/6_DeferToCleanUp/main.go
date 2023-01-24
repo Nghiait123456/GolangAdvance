@@ -6,16 +6,30 @@ import (
 )
 
 type Test struct {
-	mu    sync.Mutex
-	count int
+	mu     sync.Mutex
+	count  int
+	count1 int
 }
 
 func (t *Test) notGoodNotUseDefer() int {
+	fmt.Println(" Start case notGood. In this case, have many case return function, and i call Unlock in all case, it is boring and simple  easy to miss.  There are only a few cases where it requires a lot of performance that I should use this method, but in very few cases. ")
 	t.mu.Lock()
 	if t.count > 10 {
 		t.mu.Unlock()
 		return t.count
 	}
+
+	if t.count < 10 {
+		t.mu.Unlock()
+		return t.count
+	}
+
+	if t.count1 > 100 {
+		t.mu.Unlock()
+		return t.count1
+	}
+
+	//easy to miss unlocks due to multiple returns
 
 	t.count++
 	newCount := t.count
@@ -25,6 +39,7 @@ func (t *Test) notGoodNotUseDefer() int {
 }
 
 func (t *Test) GoodUseDefer() int {
+	fmt.Println("In this simple case, i use defer for call Unlock(). I dont care all case return other, Unlock() always call when function exits. Performance of this way is slower badCase but it's small")
 	t.mu.Lock()
 	defer t.mu.Unlock()
 	if t.count > 10 {

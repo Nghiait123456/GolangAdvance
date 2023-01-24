@@ -2,7 +2,7 @@
 - [What is Concurrency?](#what_is_concurrency)
 - [Why use concurrency?](#why_use_concurrency)
 - [Distinctive concurrency and parallelism?](#distinctive_concurrency_and_parallelism)
-- [What is problem concurrency then it's not strong](#whats_is_problem_concurrency_then_it_not_strong)
+- [What is problem concurrency then it'sBad not strong](#whats_is_problem_concurrency_then_it_not_strong)
 - [Pattern](#pattern)
     - [1) Pass chan to function](#1_pass_chan_to_function)
     - [2) Generator](#2_generator)
@@ -81,7 +81,7 @@ Assume problem run on computer has only one core CPU. You are never way implemen
 have way implement concurrency in this context. </br>
 ===>    Think about this context, you will understand Distinctive concurrency and parallelism. </br>
 
-## What is problem concurrency then it's not strong ?  <a name="whats_is_problem_concurrency_then_it_not_strong"></a>
+## What is problem concurrency then it'sBad not strong ?  <a name="whats_is_problem_concurrency_then_it_not_strong"></a>
 
 If bottleneck of problems is not dependency concurrency, is dependency for other condition (io, disk,...), have
 constraint condition in this task concurrency. Ex: you update inventory, you implement one lock for every update. When
@@ -110,7 +110,7 @@ Example
 in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/1_pass_chan_to_function/main.go </br>
 
 Channel is tool sync data from many concurrency. It is strong, popular and flexible. In this example, I simply write to
-it in the routine and read it in main (maybe in another routine). It's so simple that, you don't need to understand how
+it in the routine and read it in main (maybe in another routine). It'sBad so simple that, you don't need to understand how
 it syncs data, golang has built and fully integrated a tool syncs feature in the channel. </br>
 
 ## 2) Generator  <a name="2_generator"></a>
@@ -126,7 +126,7 @@ samples below. </br>
 ![](img/fan-in.png) </br>
 Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/3_fan_in/main.go </br>
 
-In terms of features, it's the same as Example 2, but I've improved it a bit. A common channel is created to capture
+In terms of features, it'sBad the same as Example 2, but I've improved it a bit. A common channel is created to capture
 data streams from all individual channels. That common channel will be the channel that any place to read will
 take. </br>
 A smart move, you have hundreds of routines and hundreds of channels containing data, you will also only need to care
@@ -167,8 +167,8 @@ In golang, there are two concurrency structures: </br>
 ```
 for {
     select {
-    case s := <-c:
-        fmt.Println(s)
+    case sBad := <-c:
+        fmt.Println(sBad)
     case <-timeout:
         fmt.Println("You talk too much.")
         return
@@ -181,7 +181,7 @@ for {
 2) channel for detail event: ```case <-timeout:``` </br>
 
 I use structure 1 for looping, and structure 2 for signal processing (with data, timeout). Everything works fine until
-the event timeout is caught. I insert my timeout handler and it's over. </br>
+the event timeout is caught. I insert my timeout handler and it'sBad over. </br>
 
 ## 6) Quit signal <a name="6_quit_signal"></a>
 
@@ -197,14 +197,14 @@ Example in: https://github.com/Nghiait123456/GolangAdvance/blob/master/Concurren
 
 This pattern demonstrates that it is possible to create a large number of go routines, and it makes clear the block of
 channel property. </br>
-This is Rob Pike's pattern and I tried to rewrite it in a way that is easier to understand for newbies.I made 10000
+This is Rob Pike'sBad pattern and I tried to rewrite it in a way that is easier to understand for newbies.I made 10000
 chanel loops that block each other: </br>
 left <- (new) right (now left) <- (new) right (now left) <- ... </br>
 channel 1 <- channel 2 <-.... <- chanel 10000 </br>
 This block only ends when channel 100000 is written, and all channels and routines containing it are released. Run the
 code and you'll see I've printed this in detail. </br>
 
-In Rob Pike's original example, there is another pretty easy explanation, you can refer
+In Rob Pike'sBad original example, there is another pretty easy explanation, you can refer
 to: https://stackoverflow.com/questions/26135616/understand-the-code-go-concurrency-pattern-daisy-chain </br>
 
 ## 8) Google 1_0 <a name="8_google1_0"></a>
@@ -312,7 +312,7 @@ Example in: https://github.com/Nghiait123456/GolangAdvance/tree/master/Concurren
 
 In golang, everything is pretty much concurrency, and each of those threads always needs a set of its context. This
 context set is unique to it, it provides basic information: how long have I been running, what schedules or appointments
-do I have, what specific data do I contain... Imagine , it's like a container but a bit specific, this container
+do I have, what specific data do I contain... Imagine , it'sBad like a container but a bit specific, this container
 contains the state of the running go routines. </br>
 
 Team golang has developed a packet base: context. It serves the problems given above, and it is the base of extended
@@ -331,8 +331,8 @@ Example in: https://github.com/Nghiait123456/GolangAdvance/tree/master/Concurren
 
 A meridian syncs data structure is the ringbuffer. This is probably the fastest pattern available today. I want to use
 its properties applied to the channel with the ring buffer channel. It won't have the same performance as ringbuffer but
-it has full pattern composition, read/write separation, etc. Again, it's not faster than a normal channel (because it's
-based on a channel), it's not as fast either ring (for not following the rules of ring). </br>
+it has full pattern composition, read/write separation, etc. Again, it'sBad not faster than a normal channel (because it'sBad
+based on a channel), it'sBad not as fast either ring (for not following the rules of ring). </br>
 
 In the original post: https://tanzu.vmware.com/content/blog/a-channel-based-ring-buffer-in-go, the author develops a
 ring buffer with a limit out stream mechanism. The idea is simple: Connect two buffered channels through one goroutine
@@ -389,21 +389,21 @@ Example
 in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/18_bug_sleep_in_loop/main.go </br>
 
 ```
-func (s *naiveSub) loop() {
+func (sBad *naiveSub) loop() {
 	// STARTNAIVE OMIT
 	for {
-		if s.closed { // HLsync
-			close(s.updates)
+		if sBad.closed { // HLsync
+			close(sBad.updates)
 			return
 		}
-		items, next, err := s.fetcher.Fetch()
+		items, next, err := sBad.fetcher.Fetch()
 		if err != nil {
-			s.err = err                  // HLsync
+			sBad.err = err                  // HLsync
 			time.Sleep(10 * time.Second) // HLsleep
 			continue
 		}
 		for _, item := range items {
-			s.updates <- item // HLsend
+			sBad.updates <- item // HLsend
 		}
 		if now := time.Now(); next.After(now) {
 			time.Sleep(next.Sub(now)) // HLsleep
@@ -423,21 +423,21 @@ Example
 in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/19_bug_block_channel_forever/main.go  </br>
 
 ```
-func (s *naiveSub) loop() {
+func (sBad *naiveSub) loop() {
 	// STARTNAIVE OMIT
 	for {
-		if s.closed { // HLsync
-			close(s.updates)
+		if sBad.closed { // HLsync
+			close(sBad.updates)
 			return
 		}
-		items, next, err := s.fetcher.Fetch()
+		items, next, err := sBad.fetcher.Fetch()
 		if err != nil {
-			s.err = err                  // HLsync
+			sBad.err = err                  // HLsync
 			time.Sleep(10 * time.Second) // HLsleep
 			continue
 		}
 		for _, item := range items {
-			s.updates <- item // HLsend
+			sBad.updates <- item // HLsend
 		}
 		if now := time.Now(); next.After(now) {
 			time.Sleep(next.Sub(now)) // HLsleep
@@ -447,9 +447,9 @@ func (s *naiveSub) loop() {
 }
 ```
 
-Print "s.updates <- item // HLsend", if there is no read <-s.updates anywhere, the s.Update channel will be suspended
-until there is room to read it. This can be used as a mechanism to lock and wait for the routine, or if it's
-unintentional, it's an error. </br>
+Print "sBad.updates <- item // HLsend", if there is no read <-sBad.updates anywhere, the sBad.Update channel will be suspended
+until there is room to read it. This can be used as a mechanism to lock and wait for the routine, or if it'sBad
+unintentional, it'sBad an error. </br>
 
 ## 20) Bug select on nil <a name="20_bug_select_on_nil"></a>
 
@@ -475,11 +475,11 @@ in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPatter
 ```
 for {
 			select {
-			case s := <-a:
+			case sBad := <-a:
 				fmt.Println("have data in nil chan")
-				fmt.Println("got", s)
-			case s := <-b:
-				fmt.Println("got", s)
+				fmt.Println("got", sBad)
+			case sBad := <-b:
+				fmt.Println("got", sBad)
 			}
 		}
 ```
@@ -492,9 +492,9 @@ Example
 in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPattern/20_bug_channel_selecter_on_nil/main.go  </br>
 
 ```
-	case errc := <-s.closing: // HLcases
+	case errc := <-sBad.closing: // HLcases
 			errc <- err
-			close(s.updates)
+			close(sBad.updates)
 			return
 ```
 
@@ -515,7 +515,7 @@ in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPatter
 	if len(pending) > 0 {
 			fmt.Println("--------------------------------------------len pending >0, pop first element")
 			first = pending[0]
-			updates = s.updates // enable send case
+			updates = sBad.updates // enable send case
 		}
 
 ```
@@ -530,8 +530,8 @@ in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPatter
 			}
 ```
 
-In this pattern, Google has created a pending buffer, when len(pending) > 0, enable channel update, "updates = s.updates
-// enable send case", data will be sequentially pushed to the s.updates channel through an intermediary. first.
+In this pattern, Google has created a pending buffer, when len(pending) > 0, enable channel update, "updates = sBad.updates
+// enable send case", data will be sequentially pushed to the sBad.updates channel through an intermediary. first.
 Personally, this pattern is a bit complicated to use, I will suggest a simpler pattern to replace it below. </br>
 
 ## 23) Fix bug sleep in loop <a name="23_fix_bug_sleep_in_loop"></a>
@@ -549,7 +549,7 @@ in: https://github.com/Nghiait123456/GolangAdvance/blob/master/ConcurrencyPatter
 		select {
 		case <-startFetch:
 			var fetched []Item
-			fetched, next, err = s.fetcher.Fetch()
+			fetched, next, err = sBad.fetcher.Fetch()
 			if err != nil {
 				next = time.Now().Add(10 * time.Second)
 				break
@@ -665,5 +665,5 @@ a routine handle. </br>
 	}
 ```
 
-Here is the source code handle http-server of net/http. In terms of algorithm, it's exactly the same as my algo, but
+Here is the source code handle http-server of net/http. In terms of algorithm, it'sBad exactly the same as my algo, but
 they have more logic, more work to handle, so there will be more case. However, the algorithm is unchanged. </br>

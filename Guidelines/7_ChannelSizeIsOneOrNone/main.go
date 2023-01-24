@@ -12,12 +12,14 @@ type TestChannel struct {
 }
 
 func main() {
+	fmt.Println("channel zero, one, greater one and action with it")
 	var wg sync.WaitGroup
 	test := &TestChannel{
 		cZero:       make(chan int),
 		cOne:        make(chan int, 1),
 		cGreaterOne: make(chan int, 64),
 	}
+	fmt.Println(test)
 
 	// chan Zero block when empty chan
 	//wg.Add(1)

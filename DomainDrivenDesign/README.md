@@ -21,7 +21,7 @@
 
 In 2003, Eric Evans introduced domain driven design, it quickly resonated and was gradually used for large projects.
 Domain-driven design (DDD) is a major software design approach,focusing on modeling software to match a domain according
-to input from that domain's experts. Popular books on it include: Eric Evans 2003 - Domain-Driven Design, Domain Driven
+to input from that domain'sBad experts. Popular books on it include: Eric Evans 2003 - Domain-Driven Design, Domain Driven
 Design Quickly, ...This design method is very broad, multi-problem, and a fact that no one can express its core problem
 better than the author. In this document, I do not focus on theory, I focus on practice with this theory. Specifically,
 I built a domain driven design framework with golang, it is flexible, flexible and applicable to all go frameworks. It
@@ -64,7 +64,7 @@ devs. </br>
 
 /balance/entity: please
 view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/entity </br>
-Objects are a common concept in programming. When coding, you're almost always coding for an object, and it's a broad
+Objects are a common concept in programming. When coding, you're almost always coding for an object, and it'sBad a broad
 concept. There is an object type, it is specifically identified, it is the same in different environments and services,
 as long as the ID is the same, it must be the same. It is unique with an identifier ID. That is the concept of
 entity. </br>
@@ -157,7 +157,7 @@ balance/pkg: please
 view: https://github.com/Nghiait123456/HighPerformancePaymentGateway-BalanceService/tree/master/balance/pkg </br>
 One directory that is not included in ddd but is widely accepted and used by the golang community is pkg. Normally,
 pkg/external: contains code that can be used in the project and other projects of other services, internal will contain
-only that servcie's code, if the project does not have external, only pkg will be needed. (
+only that servcie'sBad code, if the project does not have external, only pkg will be needed. (
 link: https://github.com/golang-standards/project-layout/tree/master/pkg
 , https://travisjeffery.com/b/2019/11/i-ll-take-pkg-over-internal/). </br>
 In this design, pkg will synthesize all the code logic that is not in a specific layout of ddd, eg: common auth, o-auth,
