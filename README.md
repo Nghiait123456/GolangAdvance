@@ -8,6 +8,7 @@
 - [Style](#style)
 - [SOLID](#solid)
 - [OOP](#oop)
+- [Performance](#performance)
 ## Introduce <a name="introduce"></a>
 
 General knowledge about golang advance. This knowledge is compiled from many sources, is real and advanced knowledge
@@ -49,3 +50,8 @@ Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/SOLID </
 ## OOP <a name="oop"></a>
 
 Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/OOP </br>
+
+
+## Performance <a name="performance"></a>
+
+Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/Performance </br>
