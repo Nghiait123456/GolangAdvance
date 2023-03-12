@@ -15,7 +15,7 @@ language: https://docs.google.com/document/d/1TTj4T2JO42uD5ID9e89oa0sLKhJYD0Y_kq
 Garbage collection is an important component in the go runtime, it automatically cleans the heap on the go runtime. I
 describe it from basic to advanced in this link: https://www.youtube.com/watch?v=5dw6_HrU_zU&t=43s. This is a
 conversation vs Who has a detailed scenario, I have tried to describe from basic to advanced so that it can be easily
-reached by newcomers. </br>l
+reached by newcomers. </br>
 
 ## GMOP <a name="gmop"></a>
 
