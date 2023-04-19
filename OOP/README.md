@@ -6,7 +6,8 @@
 
 ## Preview <a name="preview"></a>
 
-Golang is born as an extremely powerful and preeminent concurrency language in today'sBad world, bettering a long-standing
+Golang is born as an extremely powerful and preeminent concurrency language in today'sBad world, bettering a
+long-standing
 concurrency approach, a big idea about using server resources. As you know, golang itself is not pure OOP, but I can
 develop fully OOP guarantee code in go. A large, complex, feature-rich project is completely deployable and easy to
 maintain in golang with the powerful tools it provides. </br>
@@ -83,9 +84,8 @@ In OOP, computer programs are designed in such a way that everything is an objec
 Inheritance is an integral part of OOP languages, allowing properties of one class to be inherited by the other. With
 OOP languages, class inheritance is a familiar concept. </br>
 
-Golang has a flexible and powerful inheritance approach, it is based on embedded struct and interface. I have a detailed
-dissection of this problem:
-todo add link after fix syntax: ....
+Golang does not support inheritance directly, however it has a powerful and flexible inheritance approach, it is based
+on embedded structure and interface. I have a detailed link dissect this problem: </br>
 
 ## Polymorphism <a name="polymorphism"></a>
 
