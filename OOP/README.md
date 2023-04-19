@@ -89,7 +89,6 @@ on embedded structure and interface. I have a detailed link dissect this problem
 
 ## Polymorphism <a name="polymorphism"></a>
 
-
 In OOP, there is often a class hierarchy that includes, for example, a superclass A, and a group of subclasses that
 directly inherit the superclass: B, C, D. Polymorphism in OOP allows the same name, but will have different behavior in
 different subclasses (B, C, D,... ), or different subclasses may also have different behavior from parent class A. More
