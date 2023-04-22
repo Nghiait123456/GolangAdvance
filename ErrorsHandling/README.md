@@ -6,6 +6,7 @@
 - [Package smart warp errors](#package_smart_warp_errors)
 - [A few additional notes when handling errors](#a_few_additional_notes_when_handling_errors)
 - [Refer](#refer)
+
 ## Preview <a name="preview"></a>
 
 A famous quote in the programming world: "Don't just check errors, handle them gracefully". I have a description of it
@@ -93,7 +94,8 @@ It is the perfect complement to sentinel error if you just need error message an
 ## Package smart warp errors <a name="package_smart_warp_errors"></a>
 
 Please
-view: https://github.com/Nghiait123456/GolangAdvance/blob/master/ErrorsHandling/wrapping_errors/package_smart_warp/main.go </br>
+view: https://github.com/Nghiait123456/GolangAdvance/blob/master/ErrorsHandling/wrapping_errors/package_smart_wrap_custome_type/main.go </br>
+https://github.com/Nghiait123456/GolangAdvance/blob/master/ErrorsHandling/wrapping_errors/package_smart_wrap_sentinel_type/main.go </br>
 
 A well known library that does a pretty good job of warp errors: https://github.com/pkg/errors. It provides a full range
 of tools to warp errors flexibly. </br>
@@ -104,6 +106,10 @@ It is the perfect complement to sentinel error if you just need error message an
 dealing with a process in the middle, encountering errors caused by multiple layers. You can easily get the message from
 the error base or the common errors, warp it and return it, a context trace errors history will be established and won't
 break the original error. Let'sBad print it to the screen, and looking at the security, you can log it. </br>
+
+Also, a warp error can do much more than that, it's perfectly possible to grow from sentinel error A or custom error B,
+and warp adding messages in the process, and then check its type originates from A or B. This is rarely used but you can
+perfectly handle it gracefully. The full example is given in the link above. </br>
 
 ## A few additional notes when handling errors <a name="a_few_additional_notes_when_handling_errors"></a>
 
@@ -151,12 +157,13 @@ be. </br>
 continued to a higher layer. Logging it and throw htttp 500 with html via one panic if context is http server. It will
 be elegant and logical. </br>
 
-+) UUID can be a tool worth considering to help clearly errors. A UUID that crosses the context and is logged with states
++) UUID can be a tool worth considering to help clearly errors. A UUID that crosses the context and is logged with
+states
 is a good choice for tracing and debugging complex error cases. I often use this method in projects. I will have an
 elegant error code returned to the client. It'sBad like a black box, only me and my team know and debug it deeply. </br>
 
-
 ## Refer <a name="refer"></a>
-  https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully </br>
-  https://go.dev/blog/error-handling-and-go </br>
-  https://earthly.dev/blog/golang-errors/ </br>
+
+https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully </br>
+https://go.dev/blog/error-handling-and-go </br>
+https://earthly.dev/blog/golang-errors/ </br>
