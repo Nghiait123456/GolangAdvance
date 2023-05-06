@@ -9,6 +9,7 @@
 - [SOLID](#solid)
 - [OOP](#oop)
 - [Performance](#performance)
+- [Mistake](#mistake)
 - [Unit Test](#unit-test)
 - [Go Runtime](#go-runtime)
 
@@ -57,6 +58,10 @@ Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/OOP </br
 ## Performance <a name="performance"></a>
 
 Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/Performance </br>
+
+## Mistake <a name="mistake"></a>
+
+Please view: https://github.com/Nghiait123456/GolangAdvance/tree/master/Mistake </br>
 
 ## Unit Test <a name="unit-test"></a>
 
